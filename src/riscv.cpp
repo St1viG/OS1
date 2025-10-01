@@ -5,6 +5,7 @@
 #include "../h/riscv.hpp"
 #include "../h/tcb.hpp"
 #include "../lib/console.h"
+#include "../h/MemoryAllocator.hpp"
 
 void Riscv::popSppSpie()
 {
@@ -22,18 +23,29 @@ void Riscv::handleSupervisorTrap()
         uint64 volatile sstatus = r_sstatus();
 //        TCB::timeSliceCounter = 0;
 //        TCB::dispatch();
-        uint64 volatile opcode;
-        __asm__ volatile("ld %0, 80(s0)":"=r"(opcode));
+        uint64* volatile context;
+        __asm__ volatile("mv %0, sp":"=r"(context));
+        uint64 opcode = context[10];
+        uint64 a1 = context[11];
+        uint64 a2 = context[12];
+        uint64 a3 = context[13];
+        void* ptr;
         switch(opcode){
-            case MEM_ALLOC:
+            case MEM_ALLOC: {
+                size_t size = (size_t) a1;
+                ptr = MemoryAllocator::mem_alloc(size);
+                context[10] = (uint64) ptr;
+                break;
+            }
+            case MEM_FREE:{
+                ptr = (void*)a1;
+                int res = MemoryAllocator::mem_free(ptr);
+                context[10] = res;
+                break;}
+            case MEM_GET_FREE_SPACE: {
 
                 break;
-            case MEM_FREE:
-
-                break;
-            case MEM_GET_FREE_SPACE:
-
-                break;
+            }
             case MEM_GET_LARGEST_BLOCK_SIZE:
 
                 break;
@@ -93,6 +105,7 @@ void Riscv::handleSupervisorTrap()
     }
     else
     {
+
         // unexpected trap cause
     }
 }
