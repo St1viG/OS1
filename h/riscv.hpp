@@ -32,12 +32,7 @@ enum Interrupts{
     ECALL_SUPER = 0x0000000000000009UL,
     SOFTWARE = 0x8000000000000001UL,
     EXTERNAL = 0x8000000000000009UL,
-
-
 };
-
-
-
 
 
 class Riscv
