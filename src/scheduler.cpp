@@ -4,14 +4,14 @@
 
 #include "../h/scheduler.hpp"
 
-List<CCB> Scheduler::readyCoroutineQueue;
+List<TCB> Scheduler::readyThreadQueue;
 
-CCB *Scheduler::get()
+TCB *Scheduler::get()
 {
-    return readyCoroutineQueue.removeFirst();
+    return readyThreadQueue.removeFirst();
 }
 
-void Scheduler::put(CCB *ccb)
+void Scheduler::put(TCB *ccb)
 {
-    readyCoroutineQueue.addLast(ccb);
+    readyThreadQueue.addLast(ccb);
 }

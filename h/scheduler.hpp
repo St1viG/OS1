@@ -2,23 +2,23 @@
 // Created by marko on 20.4.22..
 //
 
-#ifndef OS1_VEZBE07_RISCV_CONTEXT_SWITCH_1_SYNCHRONOUS_SCHEDULER_HPP
-#define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_1_SYNCHRONOUS_SCHEDULER_HPP
+#ifndef OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_SCHEDULER_HPP
+#define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_SCHEDULER_HPP
 
 #include "list.hpp"
 
-class CCB;
+class TCB;
 
 class Scheduler
 {
 private:
-    static List<CCB> readyCoroutineQueue;
+    static List<TCB> readyThreadQueue;
 
 public:
-    static CCB *get();
+    static TCB *get();
 
-    static void put(CCB *ccb);
+    static void put(TCB *ccb);
 
 };
 
-#endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_1_SYNCHRONOUS_SCHEDULER_HPP
+#endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_SCHEDULER_HPP

@@ -2,10 +2,43 @@
 // Created by marko on 20.4.22..
 //
 
-#ifndef OS1_VEZBE07_RISCV_CONTEXT_SWITCH_1_SYNCHRONOUS_RISCV_HPP
-#define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_1_SYNCHRONOUS_RISCV_HPP
+#ifndef OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_RISCV_HPP
+#define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_RISCV_HPP
 
 #include "../lib/hw.h"
+
+enum opcodes{
+    MEM_ALLOC = 0x01,
+    MEM_FREE = 0x02,
+    MEM_GET_FREE_SPACE = 0x03,
+    MEM_GET_LARGEST_BLOCK_SIZE= 0x04,
+    THREAD_CREATE = 0x11,
+    THREAD_EXIT = 0x12,
+    THREAD_DISPATCH = 0x13,
+    SEM_OPEN = 0x21,
+    SEM_CLOSE = 0x22,
+    SEM_WAIT = 0x23,
+    SEM_SIGNAL = 0x24,
+    TIME_SLEEP = 0x31,
+    GETC = 0x41,
+    PUTC = 0x42
+};
+
+
+
+
+enum Interrupts{
+    ECALL_USER = 0x0000000000000008UL,
+    ECALL_SUPER = 0x0000000000000009UL,
+    SOFTWARE = 0x8000000000000001UL,
+    EXTERNAL = 0x8000000000000009UL,
+
+
+};
+
+
+
+
 
 class Riscv
 {
@@ -13,12 +46,6 @@ public:
 
     // pop sstatus.spp and sstatus.spie bits (has to be a non inline function)
     static void popSppSpie();
-
-    // push x3..x31 registers onto stack
-    static void pushRegisters();
-
-    // pop x3..x31 registers onto stack
-    static void popRegisters();
 
     // read register scause
     static uint64 r_scause();
@@ -46,9 +73,9 @@ public:
 
     enum BitMaskSip
     {
-        SIP_SSIE = (1 << 1),
-        SIP_STIE = (1 << 5),
-        SIP_SEIE = (1 << 9),
+        SIP_SSIP = (1 << 1),
+        SIP_STIP = (1 << 5),
+        SIP_SEIP = (1 << 9),
     };
 
     // mask set register sip
@@ -82,7 +109,13 @@ public:
     // write register sstatus
     static void w_sstatus(uint64 sstatus);
 
+    // supervisor trap
+    static void supervisorTrap();
+
 private:
+
+    // supervisor trap handler
+    static void handleSupervisorTrap();
 
 };
 
@@ -178,4 +211,4 @@ inline void Riscv::w_sstatus(uint64 sstatus)
     __asm__ volatile ("csrw sstatus, %[sstatus]" : : [sstatus] "r"(sstatus));
 }
 
-#endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_1_SYNCHRONOUS_RISCV_HPP
+#endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_RISCV_HPP
