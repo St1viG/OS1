@@ -20,6 +20,9 @@ public:
 
     static int mem_free(void *ptr);
 
+    static size_t mem_get_free_space();
+
+    static size_t mem_get_largest_free_block();
 
 };
 
