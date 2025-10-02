@@ -1,4 +1,4 @@
-GAS LISTING /tmp/ccqlEGLp.s 			page 1
+GAS LISTING /tmp/ccePllFI.s 			page 1
 
 
    1              		.file	"memoryAllocator.cpp"
@@ -58,7 +58,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
   47 0028 23308102 		sd	s0,32(sp)
   48 002c 233C9100 		sd	s1,24(sp)
   49 0030 23382101 		sd	s2,16(sp)
-GAS LISTING /tmp/ccqlEGLp.s 			page 2
+GAS LISTING /tmp/ccePllFI.s 			page 2
 
 
   50 0034 23343101 		sd	s3,8(sp)
@@ -118,7 +118,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
   82              		.loc 1 30 11
   83 0060 638C0408 		beqz	s1,.L3
   84              	.LBB4:
-GAS LISTING /tmp/ccqlEGLp.s 			page 3
+GAS LISTING /tmp/ccePllFI.s 			page 3
 
 
   31:src/memoryAllocator.cpp ****         if(curr->size >= needed){
@@ -178,7 +178,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
  113 0090 B387E740 		sub	a5,a5,a4
   20:src/memoryAllocator.cpp **** 
  114              		.loc 1 20 16
-GAS LISTING /tmp/ccqlEGLp.s 			page 4
+GAS LISTING /tmp/ccePllFI.s 			page 4
 
 
  115 0094 93D76700 		srli	a5,a5,6
@@ -238,7 +238,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
  153              		.loc 1 35 17 is_stmt 1
   35:src/memoryAllocator.cpp ****                 newBlock->size = remaining;
  154              		.loc 1 35 79 is_stmt 0
-GAS LISTING /tmp/ccqlEGLp.s 			page 5
+GAS LISTING /tmp/ccePllFI.s 			page 5
 
 
  155 00cc 93976900 		slli	a5,s3,6
@@ -298,7 +298,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
   51:src/memoryAllocator.cpp ****     }
   52:src/memoryAllocator.cpp ****     return nullptr;
   53:src/memoryAllocator.cpp **** }
-GAS LISTING /tmp/ccqlEGLp.s 			page 6
+GAS LISTING /tmp/ccePllFI.s 			page 6
 
 
  193              		.loc 1 53 1
@@ -358,7 +358,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
  242              	.LVL21:
  243 0134 130101FF 		addi	sp,sp,-16
  244              		.cfi_def_cfa_offset 16
-GAS LISTING /tmp/ccqlEGLp.s 			page 7
+GAS LISTING /tmp/ccePllFI.s 			page 7
 
 
  245 0138 23348100 		sd	s0,8(sp)
@@ -418,7 +418,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
  282              		.loc 1 69 20 is_stmt 0
  283 016c 2330D700 		sd	a3,0(a4)
  284              	.L20:
-GAS LISTING /tmp/ccqlEGLp.s 			page 8
+GAS LISTING /tmp/ccePllFI.s 			page 8
 
 
   70:src/memoryAllocator.cpp **** 
@@ -478,7 +478,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
  322              		.cfi_remember_state
  323              		.cfi_restore 8
  324              		.cfi_def_cfa 2, 16
-GAS LISTING /tmp/ccqlEGLp.s 			page 9
+GAS LISTING /tmp/ccePllFI.s 			page 9
 
 
  325 01ac 13010101 		addi	sp,sp,16
@@ -538,7 +538,7 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
  363              		.loc 1 84 12
  364 01ec 13050000 		li	a0,0
  365              	.LVL34:
-GAS LISTING /tmp/ccqlEGLp.s 			page 10
+GAS LISTING /tmp/ccePllFI.s 			page 10
 
 
  366 01f0 6FF09FFB 		j	.L16
@@ -563,333 +563,423 @@ GAS LISTING /tmp/ccqlEGLp.s 			page 1
  383 0208 6FF01FFA 		j	.L16
  384              		.cfi_endproc
  385              	.LFE2:
- 387              		.globl	_ZN15MemoryAllocator4headE
- 388              		.bss
- 389              		.align	3
- 390              		.set	.LANCHOR0,. + 0
- 393              	_ZN15MemoryAllocator4headE:
- 394 0000 00000000 		.zero	8
- 394      00000000 
- 395              		.text
- 396              	.Letext0:
- 397              		.file 2 "src/../h/../lib/hw.h"
- 398              		.file 3 "src/../h/MemoryAllocator.hpp"
-GAS LISTING /tmp/ccqlEGLp.s 			page 11
+ 387              		.align	2
+ 388              		.globl	_ZN15MemoryAllocator18mem_get_free_spaceEv
+ 390              	_ZN15MemoryAllocator18mem_get_free_spaceEv:
+ 391              	.LFB3:
+  87:src/memoryAllocator.cpp **** 
+  88:src/memoryAllocator.cpp **** 
+  89:src/memoryAllocator.cpp **** size_t MemoryAllocator::mem_get_free_space() {
+ 392              		.loc 1 89 46 is_stmt 1
+ 393              		.cfi_startproc
+ 394 020c 130101FF 		addi	sp,sp,-16
+ 395              		.cfi_def_cfa_offset 16
+ 396 0210 23348100 		sd	s0,8(sp)
+ 397              		.cfi_offset 8, -8
+ 398 0214 13040101 		addi	s0,sp,16
+ 399              		.cfi_def_cfa 8, 0
+  90:src/memoryAllocator.cpp ****     return 0;
+ 400              		.loc 1 90 5
+  91:src/memoryAllocator.cpp **** }
+ 401              		.loc 1 91 1 is_stmt 0
+ 402 0218 13050000 		li	a0,0
+ 403 021c 03348100 		ld	s0,8(sp)
+ 404              		.cfi_restore 8
+ 405              		.cfi_def_cfa 2, 16
+ 406 0220 13010101 		addi	sp,sp,16
+ 407              		.cfi_def_cfa_offset 0
+ 408 0224 67800000 		jr	ra
+ 409              		.cfi_endproc
+ 410              	.LFE3:
+ 412              		.align	2
+ 413              		.globl	_ZN15MemoryAllocator26mem_get_largest_free_blockEv
+ 415              	_ZN15MemoryAllocator26mem_get_largest_free_blockEv:
+ 416              	.LFB4:
+  92:src/memoryAllocator.cpp **** 
+  93:src/memoryAllocator.cpp **** size_t MemoryAllocator::mem_get_largest_free_block() {
+ 417              		.loc 1 93 54 is_stmt 1
+GAS LISTING /tmp/ccePllFI.s 			page 11
+
+
+ 418              		.cfi_startproc
+ 419 0228 130101FF 		addi	sp,sp,-16
+ 420              		.cfi_def_cfa_offset 16
+ 421 022c 23348100 		sd	s0,8(sp)
+ 422              		.cfi_offset 8, -8
+ 423 0230 13040101 		addi	s0,sp,16
+ 424              		.cfi_def_cfa 8, 0
+  94:src/memoryAllocator.cpp ****     return 0;
+ 425              		.loc 1 94 5
+  95:src/memoryAllocator.cpp **** }
+ 426              		.loc 1 95 1 is_stmt 0
+ 427 0234 13050000 		li	a0,0
+ 428 0238 03348100 		ld	s0,8(sp)
+ 429              		.cfi_restore 8
+ 430              		.cfi_def_cfa 2, 16
+ 431 023c 13010101 		addi	sp,sp,16
+ 432              		.cfi_def_cfa_offset 0
+ 433 0240 67800000 		jr	ra
+ 434              		.cfi_endproc
+ 435              	.LFE4:
+ 437              		.globl	_ZN15MemoryAllocator4headE
+ 438              		.bss
+ 439              		.align	3
+ 440              		.set	.LANCHOR0,. + 0
+ 443              	_ZN15MemoryAllocator4headE:
+ 444 0000 00000000 		.zero	8
+ 444      00000000 
+ 445              		.text
+ 446              	.Letext0:
+ 447              		.file 2 "src/../h/../lib/hw.h"
+ 448              		.file 3 "src/../h/MemoryAllocator.hpp"
+GAS LISTING /tmp/ccePllFI.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 memoryAllocator.cpp
-     /tmp/ccqlEGLp.s:8      .text:0000000000000000 _ZL12blocksNeededm
-     /tmp/ccqlEGLp.s:12     .text:0000000000000000 .L0 
-     /tmp/ccqlEGLp.s:14     .text:0000000000000000 .L0 
-     /tmp/ccqlEGLp.s:15     .text:0000000000000004 .L0 
-     /tmp/ccqlEGLp.s:17     .text:0000000000000008 .L0 
-     /tmp/ccqlEGLp.s:19     .text:000000000000000c .L0 
-     /tmp/ccqlEGLp.s:21     .text:000000000000000c .L0 
-     /tmp/ccqlEGLp.s:22     .text:000000000000000c .L0 
-     /tmp/ccqlEGLp.s:25     .text:0000000000000010 .L0 
-     /tmp/ccqlEGLp.s:28     .text:0000000000000018 .L0 
-     /tmp/ccqlEGLp.s:29     .text:0000000000000018 .L0 
-     /tmp/ccqlEGLp.s:31     .text:000000000000001c .L0 
-     /tmp/ccqlEGLp.s:33     .text:0000000000000020 .L0 
-     /tmp/ccqlEGLp.s:39     .text:0000000000000020 _ZN15MemoryAllocator9mem_allocEm
-     /tmp/ccqlEGLp.s:42     .text:0000000000000020 .L0 
-     /tmp/ccqlEGLp.s:44     .text:0000000000000020 .L0 
-     /tmp/ccqlEGLp.s:45     .text:0000000000000024 .L0 
-     /tmp/ccqlEGLp.s:52     .text:000000000000003c .L0 
-     /tmp/ccqlEGLp.s:53     .text:000000000000003c .L0 
-     /tmp/ccqlEGLp.s:54     .text:000000000000003c .L0 
-     /tmp/ccqlEGLp.s:55     .text:000000000000003c .L0 
-     /tmp/ccqlEGLp.s:56     .text:000000000000003c .L0 
-     /tmp/ccqlEGLp.s:57     .text:000000000000003c .L0 
-     /tmp/ccqlEGLp.s:59     .text:0000000000000040 .L0 
-     /tmp/ccqlEGLp.s:61     .text:0000000000000040 .L0 
-     /tmp/ccqlEGLp.s:63     .text:0000000000000044 .L0 
-     /tmp/ccqlEGLp.s:64     .text:0000000000000044 .L0 
-     /tmp/ccqlEGLp.s:69     .text:0000000000000050 .L0 
-     /tmp/ccqlEGLp.s:70     .text:0000000000000050 .L0 
-     /tmp/ccqlEGLp.s:74     .text:0000000000000058 .L0 
-     /tmp/ccqlEGLp.s:78     .text:000000000000005c .L0 
-     /tmp/ccqlEGLp.s:82     .text:0000000000000060 .L0 
-     /tmp/ccqlEGLp.s:83     .text:0000000000000060 .L0 
-     /tmp/ccqlEGLp.s:87     .text:0000000000000064 .L0 
-     /tmp/ccqlEGLp.s:88     .text:0000000000000064 .L0 
-     /tmp/ccqlEGLp.s:90     .text:0000000000000068 .L0 
-     /tmp/ccqlEGLp.s:94     .text:000000000000006c .L0 
-     /tmp/ccqlEGLp.s:95     .text:000000000000006c .L0 
-     /tmp/ccqlEGLp.s:96     .text:000000000000006c .L0 
-     /tmp/ccqlEGLp.s:98     .text:0000000000000070 .L0 
-     /tmp/ccqlEGLp.s:102    .text:0000000000000074 .L0 
-     /tmp/ccqlEGLp.s:108    .text:0000000000000078 .L0 
-     /tmp/ccqlEGLp.s:109    .text:0000000000000078 .L0 
-     /tmp/ccqlEGLp.s:115    .text:0000000000000094 .L0 
-     /tmp/ccqlEGLp.s:118    .text:0000000000000098 .L0 
-     /tmp/ccqlEGLp.s:120    .text:000000000000009c .L0 
-     /tmp/ccqlEGLp.s:121    .text:000000000000009c .L0 
-     /tmp/ccqlEGLp.s:124    .text:00000000000000a8 .L0 
-     /tmp/ccqlEGLp.s:125    .text:00000000000000a8 .L0 
-     /tmp/ccqlEGLp.s:127    .text:00000000000000ac .L0 
-     /tmp/ccqlEGLp.s:128    .text:00000000000000ac .L0 
-     /tmp/ccqlEGLp.s:130    .text:00000000000000b0 .L0 
-     /tmp/ccqlEGLp.s:140    .text:00000000000000b8 .L0 
-     /tmp/ccqlEGLp.s:141    .text:00000000000000b8 .L0 
-     /tmp/ccqlEGLp.s:145    .text:00000000000000bc .L0 
-GAS LISTING /tmp/ccqlEGLp.s 			page 12
+     /tmp/ccePllFI.s:8      .text:0000000000000000 _ZL12blocksNeededm
+     /tmp/ccePllFI.s:12     .text:0000000000000000 .L0 
+     /tmp/ccePllFI.s:14     .text:0000000000000000 .L0 
+     /tmp/ccePllFI.s:15     .text:0000000000000004 .L0 
+     /tmp/ccePllFI.s:17     .text:0000000000000008 .L0 
+     /tmp/ccePllFI.s:19     .text:000000000000000c .L0 
+     /tmp/ccePllFI.s:21     .text:000000000000000c .L0 
+     /tmp/ccePllFI.s:22     .text:000000000000000c .L0 
+     /tmp/ccePllFI.s:25     .text:0000000000000010 .L0 
+     /tmp/ccePllFI.s:28     .text:0000000000000018 .L0 
+     /tmp/ccePllFI.s:29     .text:0000000000000018 .L0 
+     /tmp/ccePllFI.s:31     .text:000000000000001c .L0 
+     /tmp/ccePllFI.s:33     .text:0000000000000020 .L0 
+     /tmp/ccePllFI.s:39     .text:0000000000000020 _ZN15MemoryAllocator9mem_allocEm
+     /tmp/ccePllFI.s:42     .text:0000000000000020 .L0 
+     /tmp/ccePllFI.s:44     .text:0000000000000020 .L0 
+     /tmp/ccePllFI.s:45     .text:0000000000000024 .L0 
+     /tmp/ccePllFI.s:52     .text:000000000000003c .L0 
+     /tmp/ccePllFI.s:53     .text:000000000000003c .L0 
+     /tmp/ccePllFI.s:54     .text:000000000000003c .L0 
+     /tmp/ccePllFI.s:55     .text:000000000000003c .L0 
+     /tmp/ccePllFI.s:56     .text:000000000000003c .L0 
+     /tmp/ccePllFI.s:57     .text:000000000000003c .L0 
+     /tmp/ccePllFI.s:59     .text:0000000000000040 .L0 
+     /tmp/ccePllFI.s:61     .text:0000000000000040 .L0 
+     /tmp/ccePllFI.s:63     .text:0000000000000044 .L0 
+     /tmp/ccePllFI.s:64     .text:0000000000000044 .L0 
+     /tmp/ccePllFI.s:69     .text:0000000000000050 .L0 
+     /tmp/ccePllFI.s:70     .text:0000000000000050 .L0 
+     /tmp/ccePllFI.s:74     .text:0000000000000058 .L0 
+     /tmp/ccePllFI.s:78     .text:000000000000005c .L0 
+     /tmp/ccePllFI.s:82     .text:0000000000000060 .L0 
+     /tmp/ccePllFI.s:83     .text:0000000000000060 .L0 
+     /tmp/ccePllFI.s:87     .text:0000000000000064 .L0 
+     /tmp/ccePllFI.s:88     .text:0000000000000064 .L0 
+     /tmp/ccePllFI.s:90     .text:0000000000000068 .L0 
+     /tmp/ccePllFI.s:94     .text:000000000000006c .L0 
+     /tmp/ccePllFI.s:95     .text:000000000000006c .L0 
+     /tmp/ccePllFI.s:96     .text:000000000000006c .L0 
+     /tmp/ccePllFI.s:98     .text:0000000000000070 .L0 
+     /tmp/ccePllFI.s:102    .text:0000000000000074 .L0 
+     /tmp/ccePllFI.s:108    .text:0000000000000078 .L0 
+     /tmp/ccePllFI.s:109    .text:0000000000000078 .L0 
+     /tmp/ccePllFI.s:115    .text:0000000000000094 .L0 
+     /tmp/ccePllFI.s:118    .text:0000000000000098 .L0 
+     /tmp/ccePllFI.s:120    .text:000000000000009c .L0 
+     /tmp/ccePllFI.s:121    .text:000000000000009c .L0 
+     /tmp/ccePllFI.s:124    .text:00000000000000a8 .L0 
+     /tmp/ccePllFI.s:125    .text:00000000000000a8 .L0 
+     /tmp/ccePllFI.s:127    .text:00000000000000ac .L0 
+     /tmp/ccePllFI.s:128    .text:00000000000000ac .L0 
+     /tmp/ccePllFI.s:130    .text:00000000000000b0 .L0 
+     /tmp/ccePllFI.s:140    .text:00000000000000b8 .L0 
+     /tmp/ccePllFI.s:141    .text:00000000000000b8 .L0 
+     /tmp/ccePllFI.s:145    .text:00000000000000bc .L0 
+GAS LISTING /tmp/ccePllFI.s 			page 13
 
 
-     /tmp/ccqlEGLp.s:146    .text:00000000000000bc .L0 
-     /tmp/ccqlEGLp.s:151    .text:00000000000000c8 .L0 
-     /tmp/ccqlEGLp.s:154    .text:00000000000000cc .L0 
-     /tmp/ccqlEGLp.s:155    .text:00000000000000cc .L0 
-     /tmp/ccqlEGLp.s:157    .text:00000000000000d0 .L0 
-     /tmp/ccqlEGLp.s:160    .text:00000000000000d4 .L0 
-     /tmp/ccqlEGLp.s:161    .text:00000000000000d4 .L0 
-     /tmp/ccqlEGLp.s:163    .text:00000000000000d8 .L0 
-     /tmp/ccqlEGLp.s:164    .text:00000000000000d8 .L0 
-     /tmp/ccqlEGLp.s:166    .text:00000000000000dc .L0 
-     /tmp/ccqlEGLp.s:168    .text:00000000000000e0 .L0 
-     /tmp/ccqlEGLp.s:169    .text:00000000000000e0 .L0 
-     /tmp/ccqlEGLp.s:171    .text:00000000000000e4 .L0 
-     /tmp/ccqlEGLp.s:172    .text:00000000000000e4 .L0 
-     /tmp/ccqlEGLp.s:178    .text:00000000000000e8 .L0 
-     /tmp/ccqlEGLp.s:180    .text:00000000000000ec .L0 
-     /tmp/ccqlEGLp.s:181    .text:00000000000000ec .L0 
-     /tmp/ccqlEGLp.s:183    .text:00000000000000f0 .L0 
-     /tmp/ccqlEGLp.s:186    .text:00000000000000f4 .L0 
-     /tmp/ccqlEGLp.s:187    .text:00000000000000f4 .L0 
-     /tmp/ccqlEGLp.s:194    .text:00000000000000f8 .L0 
-     /tmp/ccqlEGLp.s:196    .text:0000000000000100 .L0 
-     /tmp/ccqlEGLp.s:197    .text:0000000000000100 .L0 
-     /tmp/ccqlEGLp.s:199    .text:0000000000000104 .L0 
-     /tmp/ccqlEGLp.s:200    .text:0000000000000104 .L0 
-     /tmp/ccqlEGLp.s:202    .text:0000000000000108 .L0 
-     /tmp/ccqlEGLp.s:204    .text:000000000000010c .L0 
-     /tmp/ccqlEGLp.s:206    .text:0000000000000110 .L0 
-     /tmp/ccqlEGLp.s:208    .text:0000000000000114 .L0 
-     /tmp/ccqlEGLp.s:210    .text:0000000000000118 .L0 
-     /tmp/ccqlEGLp.s:214    .text:000000000000011c .L0 
-     /tmp/ccqlEGLp.s:219    .text:000000000000011c .L0 
-     /tmp/ccqlEGLp.s:220    .text:000000000000011c .L0 
-     /tmp/ccqlEGLp.s:222    .text:0000000000000120 .L0 
-     /tmp/ccqlEGLp.s:230    .text:000000000000012c .L0 
-     /tmp/ccqlEGLp.s:232    .text:0000000000000134 .L0 
-     /tmp/ccqlEGLp.s:238    .text:0000000000000134 _ZN15MemoryAllocator8mem_freeEPv
-     /tmp/ccqlEGLp.s:241    .text:0000000000000134 .L0 
-     /tmp/ccqlEGLp.s:243    .text:0000000000000134 .L0 
-     /tmp/ccqlEGLp.s:244    .text:0000000000000138 .L0 
-     /tmp/ccqlEGLp.s:246    .text:000000000000013c .L0 
-     /tmp/ccqlEGLp.s:248    .text:0000000000000140 .L0 
-     /tmp/ccqlEGLp.s:250    .text:0000000000000140 .L0 
-     /tmp/ccqlEGLp.s:252    .text:0000000000000144 .L0 
-     /tmp/ccqlEGLp.s:253    .text:0000000000000144 .L0 
-     /tmp/ccqlEGLp.s:256    .text:0000000000000148 .L0 
-     /tmp/ccqlEGLp.s:257    .text:0000000000000148 .L0 
-     /tmp/ccqlEGLp.s:260    .text:0000000000000150 .L0 
-     /tmp/ccqlEGLp.s:264    .text:0000000000000154 .L0 
-     /tmp/ccqlEGLp.s:265    .text:0000000000000154 .L0 
-     /tmp/ccqlEGLp.s:267    .text:0000000000000158 .L0 
-     /tmp/ccqlEGLp.s:270    .text:000000000000015c .L0 
-     /tmp/ccqlEGLp.s:271    .text:000000000000015c .L0 
-     /tmp/ccqlEGLp.s:272    .text:000000000000015c .L0 
-     /tmp/ccqlEGLp.s:274    .text:0000000000000160 .L0 
-     /tmp/ccqlEGLp.s:277    .text:0000000000000164 .L0 
-     /tmp/ccqlEGLp.s:280    .text:0000000000000168 .L0 
-GAS LISTING /tmp/ccqlEGLp.s 			page 13
+     /tmp/ccePllFI.s:146    .text:00000000000000bc .L0 
+     /tmp/ccePllFI.s:151    .text:00000000000000c8 .L0 
+     /tmp/ccePllFI.s:154    .text:00000000000000cc .L0 
+     /tmp/ccePllFI.s:155    .text:00000000000000cc .L0 
+     /tmp/ccePllFI.s:157    .text:00000000000000d0 .L0 
+     /tmp/ccePllFI.s:160    .text:00000000000000d4 .L0 
+     /tmp/ccePllFI.s:161    .text:00000000000000d4 .L0 
+     /tmp/ccePllFI.s:163    .text:00000000000000d8 .L0 
+     /tmp/ccePllFI.s:164    .text:00000000000000d8 .L0 
+     /tmp/ccePllFI.s:166    .text:00000000000000dc .L0 
+     /tmp/ccePllFI.s:168    .text:00000000000000e0 .L0 
+     /tmp/ccePllFI.s:169    .text:00000000000000e0 .L0 
+     /tmp/ccePllFI.s:171    .text:00000000000000e4 .L0 
+     /tmp/ccePllFI.s:172    .text:00000000000000e4 .L0 
+     /tmp/ccePllFI.s:178    .text:00000000000000e8 .L0 
+     /tmp/ccePllFI.s:180    .text:00000000000000ec .L0 
+     /tmp/ccePllFI.s:181    .text:00000000000000ec .L0 
+     /tmp/ccePllFI.s:183    .text:00000000000000f0 .L0 
+     /tmp/ccePllFI.s:186    .text:00000000000000f4 .L0 
+     /tmp/ccePllFI.s:187    .text:00000000000000f4 .L0 
+     /tmp/ccePllFI.s:194    .text:00000000000000f8 .L0 
+     /tmp/ccePllFI.s:196    .text:0000000000000100 .L0 
+     /tmp/ccePllFI.s:197    .text:0000000000000100 .L0 
+     /tmp/ccePllFI.s:199    .text:0000000000000104 .L0 
+     /tmp/ccePllFI.s:200    .text:0000000000000104 .L0 
+     /tmp/ccePllFI.s:202    .text:0000000000000108 .L0 
+     /tmp/ccePllFI.s:204    .text:000000000000010c .L0 
+     /tmp/ccePllFI.s:206    .text:0000000000000110 .L0 
+     /tmp/ccePllFI.s:208    .text:0000000000000114 .L0 
+     /tmp/ccePllFI.s:210    .text:0000000000000118 .L0 
+     /tmp/ccePllFI.s:214    .text:000000000000011c .L0 
+     /tmp/ccePllFI.s:219    .text:000000000000011c .L0 
+     /tmp/ccePllFI.s:220    .text:000000000000011c .L0 
+     /tmp/ccePllFI.s:222    .text:0000000000000120 .L0 
+     /tmp/ccePllFI.s:230    .text:000000000000012c .L0 
+     /tmp/ccePllFI.s:232    .text:0000000000000134 .L0 
+     /tmp/ccePllFI.s:238    .text:0000000000000134 _ZN15MemoryAllocator8mem_freeEPv
+     /tmp/ccePllFI.s:241    .text:0000000000000134 .L0 
+     /tmp/ccePllFI.s:243    .text:0000000000000134 .L0 
+     /tmp/ccePllFI.s:244    .text:0000000000000138 .L0 
+     /tmp/ccePllFI.s:246    .text:000000000000013c .L0 
+     /tmp/ccePllFI.s:248    .text:0000000000000140 .L0 
+     /tmp/ccePllFI.s:250    .text:0000000000000140 .L0 
+     /tmp/ccePllFI.s:252    .text:0000000000000144 .L0 
+     /tmp/ccePllFI.s:253    .text:0000000000000144 .L0 
+     /tmp/ccePllFI.s:256    .text:0000000000000148 .L0 
+     /tmp/ccePllFI.s:257    .text:0000000000000148 .L0 
+     /tmp/ccePllFI.s:260    .text:0000000000000150 .L0 
+     /tmp/ccePllFI.s:264    .text:0000000000000154 .L0 
+     /tmp/ccePllFI.s:265    .text:0000000000000154 .L0 
+     /tmp/ccePllFI.s:267    .text:0000000000000158 .L0 
+     /tmp/ccePllFI.s:270    .text:000000000000015c .L0 
+     /tmp/ccePllFI.s:271    .text:000000000000015c .L0 
+     /tmp/ccePllFI.s:272    .text:000000000000015c .L0 
+     /tmp/ccePllFI.s:274    .text:0000000000000160 .L0 
+     /tmp/ccePllFI.s:277    .text:0000000000000164 .L0 
+     /tmp/ccePllFI.s:280    .text:0000000000000168 .L0 
+GAS LISTING /tmp/ccePllFI.s 			page 14
 
 
-     /tmp/ccqlEGLp.s:282    .text:000000000000016c .L0 
-     /tmp/ccqlEGLp.s:283    .text:000000000000016c .L0 
-     /tmp/ccqlEGLp.s:286    .text:0000000000000170 .L0 
-     /tmp/ccqlEGLp.s:287    .text:0000000000000170 .L0 
-     /tmp/ccqlEGLp.s:289    .text:0000000000000174 .L0 
-     /tmp/ccqlEGLp.s:291    .text:0000000000000178 .L0 
-     /tmp/ccqlEGLp.s:293    .text:000000000000017c .L0 
-     /tmp/ccqlEGLp.s:295    .text:0000000000000180 .L0 
-     /tmp/ccqlEGLp.s:298    .text:0000000000000184 .L0 
-     /tmp/ccqlEGLp.s:302    .text:0000000000000188 .L0 
-     /tmp/ccqlEGLp.s:304    .text:000000000000018c .L0 
-     /tmp/ccqlEGLp.s:305    .text:000000000000018c .L0 
-     /tmp/ccqlEGLp.s:307    .text:0000000000000190 .L0 
-     /tmp/ccqlEGLp.s:309    .text:0000000000000194 .L0 
-     /tmp/ccqlEGLp.s:311    .text:0000000000000198 .L0 
-     /tmp/ccqlEGLp.s:313    .text:000000000000019c .L0 
-     /tmp/ccqlEGLp.s:315    .text:00000000000001a0 .L0 
-     /tmp/ccqlEGLp.s:317    .text:00000000000001a4 .L0 
-     /tmp/ccqlEGLp.s:321    .text:00000000000001a8 .L0 
-     /tmp/ccqlEGLp.s:322    .text:00000000000001ac .L0 
-     /tmp/ccqlEGLp.s:323    .text:00000000000001ac .L0 
-     /tmp/ccqlEGLp.s:324    .text:00000000000001ac .L0 
-     /tmp/ccqlEGLp.s:326    .text:00000000000001b0 .L0 
-     /tmp/ccqlEGLp.s:330    .text:00000000000001b4 .L0 
-     /tmp/ccqlEGLp.s:332    .text:00000000000001b4 .L0 
-     /tmp/ccqlEGLp.s:333    .text:00000000000001b4 .L0 
-     /tmp/ccqlEGLp.s:338    .text:00000000000001c0 .L0 
-     /tmp/ccqlEGLp.s:339    .text:00000000000001c0 .L0 
-     /tmp/ccqlEGLp.s:341    .text:00000000000001c4 .L0 
-     /tmp/ccqlEGLp.s:344    .text:00000000000001cc .L0 
-     /tmp/ccqlEGLp.s:345    .text:00000000000001cc .L0 
-     /tmp/ccqlEGLp.s:348    .text:00000000000001d0 .L0 
-     /tmp/ccqlEGLp.s:353    .text:00000000000001d8 .L0 
-     /tmp/ccqlEGLp.s:354    .text:00000000000001d8 .L0 
-     /tmp/ccqlEGLp.s:356    .text:00000000000001dc .L0 
-     /tmp/ccqlEGLp.s:359    .text:00000000000001e4 .L0 
-     /tmp/ccqlEGLp.s:360    .text:00000000000001e4 .L0 
-     /tmp/ccqlEGLp.s:362    .text:00000000000001e8 .L0 
-     /tmp/ccqlEGLp.s:364    .text:00000000000001ec .L0 
-     /tmp/ccqlEGLp.s:370    .text:00000000000001f4 .L0 
-     /tmp/ccqlEGLp.s:376    .text:00000000000001fc .L0 
-     /tmp/ccqlEGLp.s:384    .text:000000000000020c .L0 
-     /tmp/ccqlEGLp.s:393    .bss:0000000000000000 _ZN15MemoryAllocator4headE
-     /tmp/ccqlEGLp.s:390    .bss:0000000000000000 .LANCHOR0
-     /tmp/ccqlEGLp.s:399    .text:000000000000020c .L0 
-     /tmp/ccqlEGLp.s:70     .text:0000000000000050 .L0 
-     /tmp/ccqlEGLp.s:109    .text:0000000000000078 .L0 
-     /tmp/ccqlEGLp.s:111    .text:0000000000000084 .L0 
-     /tmp/ccqlEGLp.s:121    .text:000000000000009c .L0 
-     /tmp/ccqlEGLp.s:222    .text:0000000000000120 .L0 
-     /tmp/ccqlEGLp.s:257    .text:0000000000000148 .L0 
-     /tmp/ccqlEGLp.s:333    .text:00000000000001b4 .L0 
-     /tmp/ccqlEGLp.s:225    .text:000000000000012c .L11
-     /tmp/ccqlEGLp.s:104    .text:0000000000000078 .L13
-     /tmp/ccqlEGLp.s:189    .text:00000000000000f8 .L3
-     /tmp/ccqlEGLp.s:134    .text:00000000000000b8 .L14
-     /tmp/ccqlEGLp.s:80     .text:0000000000000060 .L10
-GAS LISTING /tmp/ccqlEGLp.s 			page 14
+     /tmp/ccePllFI.s:282    .text:000000000000016c .L0 
+     /tmp/ccePllFI.s:283    .text:000000000000016c .L0 
+     /tmp/ccePllFI.s:286    .text:0000000000000170 .L0 
+     /tmp/ccePllFI.s:287    .text:0000000000000170 .L0 
+     /tmp/ccePllFI.s:289    .text:0000000000000174 .L0 
+     /tmp/ccePllFI.s:291    .text:0000000000000178 .L0 
+     /tmp/ccePllFI.s:293    .text:000000000000017c .L0 
+     /tmp/ccePllFI.s:295    .text:0000000000000180 .L0 
+     /tmp/ccePllFI.s:298    .text:0000000000000184 .L0 
+     /tmp/ccePllFI.s:302    .text:0000000000000188 .L0 
+     /tmp/ccePllFI.s:304    .text:000000000000018c .L0 
+     /tmp/ccePllFI.s:305    .text:000000000000018c .L0 
+     /tmp/ccePllFI.s:307    .text:0000000000000190 .L0 
+     /tmp/ccePllFI.s:309    .text:0000000000000194 .L0 
+     /tmp/ccePllFI.s:311    .text:0000000000000198 .L0 
+     /tmp/ccePllFI.s:313    .text:000000000000019c .L0 
+     /tmp/ccePllFI.s:315    .text:00000000000001a0 .L0 
+     /tmp/ccePllFI.s:317    .text:00000000000001a4 .L0 
+     /tmp/ccePllFI.s:321    .text:00000000000001a8 .L0 
+     /tmp/ccePllFI.s:322    .text:00000000000001ac .L0 
+     /tmp/ccePllFI.s:323    .text:00000000000001ac .L0 
+     /tmp/ccePllFI.s:324    .text:00000000000001ac .L0 
+     /tmp/ccePllFI.s:326    .text:00000000000001b0 .L0 
+     /tmp/ccePllFI.s:330    .text:00000000000001b4 .L0 
+     /tmp/ccePllFI.s:332    .text:00000000000001b4 .L0 
+     /tmp/ccePllFI.s:333    .text:00000000000001b4 .L0 
+     /tmp/ccePllFI.s:338    .text:00000000000001c0 .L0 
+     /tmp/ccePllFI.s:339    .text:00000000000001c0 .L0 
+     /tmp/ccePllFI.s:341    .text:00000000000001c4 .L0 
+     /tmp/ccePllFI.s:344    .text:00000000000001cc .L0 
+     /tmp/ccePllFI.s:345    .text:00000000000001cc .L0 
+     /tmp/ccePllFI.s:348    .text:00000000000001d0 .L0 
+     /tmp/ccePllFI.s:353    .text:00000000000001d8 .L0 
+     /tmp/ccePllFI.s:354    .text:00000000000001d8 .L0 
+     /tmp/ccePllFI.s:356    .text:00000000000001dc .L0 
+     /tmp/ccePllFI.s:359    .text:00000000000001e4 .L0 
+     /tmp/ccePllFI.s:360    .text:00000000000001e4 .L0 
+     /tmp/ccePllFI.s:362    .text:00000000000001e8 .L0 
+     /tmp/ccePllFI.s:364    .text:00000000000001ec .L0 
+     /tmp/ccePllFI.s:370    .text:00000000000001f4 .L0 
+     /tmp/ccePllFI.s:376    .text:00000000000001fc .L0 
+     /tmp/ccePllFI.s:384    .text:000000000000020c .L0 
+     /tmp/ccePllFI.s:390    .text:000000000000020c _ZN15MemoryAllocator18mem_get_free_spaceEv
+     /tmp/ccePllFI.s:393    .text:000000000000020c .L0 
+     /tmp/ccePllFI.s:394    .text:000000000000020c .L0 
+     /tmp/ccePllFI.s:395    .text:0000000000000210 .L0 
+     /tmp/ccePllFI.s:397    .text:0000000000000214 .L0 
+     /tmp/ccePllFI.s:399    .text:0000000000000218 .L0 
+     /tmp/ccePllFI.s:401    .text:0000000000000218 .L0 
+     /tmp/ccePllFI.s:402    .text:0000000000000218 .L0 
+     /tmp/ccePllFI.s:404    .text:0000000000000220 .L0 
+     /tmp/ccePllFI.s:405    .text:0000000000000220 .L0 
+     /tmp/ccePllFI.s:407    .text:0000000000000224 .L0 
+     /tmp/ccePllFI.s:409    .text:0000000000000228 .L0 
+     /tmp/ccePllFI.s:415    .text:0000000000000228 _ZN15MemoryAllocator26mem_get_largest_free_blockEv
+     /tmp/ccePllFI.s:418    .text:0000000000000228 .L0 
+     /tmp/ccePllFI.s:419    .text:0000000000000228 .L0 
+GAS LISTING /tmp/ccePllFI.s 			page 15
 
 
-     /tmp/ccqlEGLp.s:75     .text:000000000000005c .L5
-     /tmp/ccqlEGLp.s:174    .text:00000000000000e8 .L7
-     /tmp/ccqlEGLp.s:213    .text:000000000000011c .L8
-     /tmp/ccqlEGLp.s:184    .text:00000000000000f4 .L9
-     /tmp/ccqlEGLp.s:368    .text:00000000000001f4 .L22
-     /tmp/ccqlEGLp.s:278    .text:0000000000000168 .L17
-     /tmp/ccqlEGLp.s:262    .text:0000000000000154 .L18
-     /tmp/ccqlEGLp.s:329    .text:00000000000001b4 .L27
-     /tmp/ccqlEGLp.s:300    .text:0000000000000188 .L21
-     /tmp/ccqlEGLp.s:336    .text:00000000000001c0 .L28
-     /tmp/ccqlEGLp.s:374    .text:00000000000001fc .L23
-     /tmp/ccqlEGLp.s:380    .text:0000000000000204 .L24
-     /tmp/ccqlEGLp.s:351    .text:00000000000001d8 .L29
-     /tmp/ccqlEGLp.s:284    .text:0000000000000170 .L20
-     /tmp/ccqlEGLp.s:319    .text:00000000000001a8 .L16
-     /tmp/ccqlEGLp.s:767    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
-     /tmp/ccqlEGLp.s:1583   .debug_str:000000000000004f .LASF30
-     /tmp/ccqlEGLp.s:1611   .debug_str:00000000000001d9 .LASF31
-     /tmp/ccqlEGLp.s:1625   .debug_str:000000000000023f .LASF32
-     /tmp/ccqlEGLp.s:5      .text:0000000000000000 .Ltext0
-     /tmp/ccqlEGLp.s:396    .text:000000000000020c .Letext0
-     /tmp/ccqlEGLp.s:1569   .debug_line:0000000000000000 .Ldebug_line0
-     /tmp/ccqlEGLp.s:1617   .debug_str:000000000000020f .LASF0
-     /tmp/ccqlEGLp.s:1607   .debug_str:00000000000001ba .LASF1
-     /tmp/ccqlEGLp.s:1601   .debug_str:0000000000000191 .LASF2
-     /tmp/ccqlEGLp.s:1587   .debug_str:0000000000000121 .LASF4
-     /tmp/ccqlEGLp.s:1605   .debug_str:00000000000001a8 .LASF3
-     /tmp/ccqlEGLp.s:1575   .debug_str:0000000000000023 .LASF5
-     /tmp/ccqlEGLp.s:1571   .debug_str:0000000000000000 .LASF6
-     /tmp/ccqlEGLp.s:1593   .debug_str:0000000000000148 .LASF7
-     /tmp/ccqlEGLp.s:1627   .debug_str:0000000000000258 .LASF8
-     /tmp/ccqlEGLp.s:1585   .debug_str:0000000000000113 .LASF9
-     /tmp/ccqlEGLp.s:1647   .debug_str:00000000000002e3 .LASF10
-     /tmp/ccqlEGLp.s:1597   .debug_str:0000000000000161 .LASF11
-     /tmp/ccqlEGLp.s:1639   .debug_str:00000000000002bf .LASF12
-     /tmp/ccqlEGLp.s:1631   .debug_str:000000000000027e .LASF13
-     /tmp/ccqlEGLp.s:1609   .debug_str:00000000000001cd .LASF14
-     /tmp/ccqlEGLp.s:1591   .debug_str:0000000000000132 .LASF15
-     /tmp/ccqlEGLp.s:1629   .debug_str:0000000000000268 .LASF16
-     /tmp/ccqlEGLp.s:1621   .debug_str:0000000000000229 .LASF33
-     /tmp/ccqlEGLp.s:1577   .debug_str:000000000000002a .LASF17
-     /tmp/ccqlEGLp.s:1643   .debug_str:00000000000002d9 .LASF18
-     /tmp/ccqlEGLp.s:1573   .debug_str:0000000000000013 .LASF19
-     /tmp/ccqlEGLp.s:1615   .debug_str:000000000000020a .LASF34
-     /tmp/ccqlEGLp.s:1613   .debug_str:00000000000001f1 .LASF21
-     /tmp/ccqlEGLp.s:1641   .debug_str:00000000000002cf .LASF20
-     /tmp/ccqlEGLp.s:1637   .debug_str:000000000000029e .LASF22
-     /tmp/ccqlEGLp.s:1633   .debug_str:000000000000028e .LASF35
-     /tmp/ccqlEGLp.s:1599   .debug_str:0000000000000170 .LASF36
-     /tmp/ccqlEGLp.s:1579   .debug_str:000000000000002f .LASF37
-     /tmp/ccqlEGLp.s:239    .text:0000000000000134 .LFB2
-     /tmp/ccqlEGLp.s:385    .text:000000000000020c .LFE2
-     /tmp/ccqlEGLp.s:1244   .debug_loc:0000000000000000 .LLST8
-     /tmp/ccqlEGLp.s:1595   .debug_str:000000000000015b .LASF23
-     /tmp/ccqlEGLp.s:1302   .debug_loc:00000000000000dd .LLST9
-     /tmp/ccqlEGLp.s:1581   .debug_str:000000000000004a .LASF24
-     /tmp/ccqlEGLp.s:1364   .debug_loc:00000000000001af .LLST10
-GAS LISTING /tmp/ccqlEGLp.s 			page 15
+     /tmp/ccePllFI.s:420    .text:000000000000022c .L0 
+     /tmp/ccePllFI.s:422    .text:0000000000000230 .L0 
+     /tmp/ccePllFI.s:424    .text:0000000000000234 .L0 
+     /tmp/ccePllFI.s:426    .text:0000000000000234 .L0 
+     /tmp/ccePllFI.s:427    .text:0000000000000234 .L0 
+     /tmp/ccePllFI.s:429    .text:000000000000023c .L0 
+     /tmp/ccePllFI.s:430    .text:000000000000023c .L0 
+     /tmp/ccePllFI.s:432    .text:0000000000000240 .L0 
+     /tmp/ccePllFI.s:434    .text:0000000000000244 .L0 
+     /tmp/ccePllFI.s:443    .bss:0000000000000000 _ZN15MemoryAllocator4headE
+     /tmp/ccePllFI.s:440    .bss:0000000000000000 .LANCHOR0
+     /tmp/ccePllFI.s:449    .text:0000000000000244 .L0 
+     /tmp/ccePllFI.s:70     .text:0000000000000050 .L0 
+     /tmp/ccePllFI.s:109    .text:0000000000000078 .L0 
+     /tmp/ccePllFI.s:111    .text:0000000000000084 .L0 
+     /tmp/ccePllFI.s:121    .text:000000000000009c .L0 
+     /tmp/ccePllFI.s:222    .text:0000000000000120 .L0 
+     /tmp/ccePllFI.s:257    .text:0000000000000148 .L0 
+     /tmp/ccePllFI.s:333    .text:00000000000001b4 .L0 
+     /tmp/ccePllFI.s:225    .text:000000000000012c .L11
+     /tmp/ccePllFI.s:104    .text:0000000000000078 .L13
+     /tmp/ccePllFI.s:189    .text:00000000000000f8 .L3
+     /tmp/ccePllFI.s:134    .text:00000000000000b8 .L14
+     /tmp/ccePllFI.s:80     .text:0000000000000060 .L10
+     /tmp/ccePllFI.s:75     .text:000000000000005c .L5
+     /tmp/ccePllFI.s:174    .text:00000000000000e8 .L7
+     /tmp/ccePllFI.s:213    .text:000000000000011c .L8
+     /tmp/ccePllFI.s:184    .text:00000000000000f4 .L9
+     /tmp/ccePllFI.s:368    .text:00000000000001f4 .L22
+     /tmp/ccePllFI.s:278    .text:0000000000000168 .L17
+     /tmp/ccePllFI.s:262    .text:0000000000000154 .L18
+     /tmp/ccePllFI.s:329    .text:00000000000001b4 .L27
+     /tmp/ccePllFI.s:300    .text:0000000000000188 .L21
+     /tmp/ccePllFI.s:336    .text:00000000000001c0 .L28
+     /tmp/ccePllFI.s:374    .text:00000000000001fc .L23
+     /tmp/ccePllFI.s:380    .text:0000000000000204 .L24
+     /tmp/ccePllFI.s:351    .text:00000000000001d8 .L29
+     /tmp/ccePllFI.s:284    .text:0000000000000170 .L20
+     /tmp/ccePllFI.s:319    .text:00000000000001a8 .L16
+     /tmp/ccePllFI.s:852    .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccePllFI.s:1689   .debug_str:000000000000004f .LASF36
+     /tmp/ccePllFI.s:1717   .debug_str:00000000000001d9 .LASF37
+     /tmp/ccePllFI.s:1733   .debug_str:000000000000025a .LASF38
+     /tmp/ccePllFI.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccePllFI.s:446    .text:0000000000000244 .Letext0
+     /tmp/ccePllFI.s:1675   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccePllFI.s:1725   .debug_str:000000000000022a .LASF0
+     /tmp/ccePllFI.s:1713   .debug_str:00000000000001ba .LASF1
+     /tmp/ccePllFI.s:1707   .debug_str:0000000000000191 .LASF2
+     /tmp/ccePllFI.s:1693   .debug_str:0000000000000121 .LASF4
+     /tmp/ccePllFI.s:1711   .debug_str:00000000000001a8 .LASF3
+     /tmp/ccePllFI.s:1681   .debug_str:0000000000000023 .LASF5
+     /tmp/ccePllFI.s:1677   .debug_str:0000000000000000 .LASF6
+     /tmp/ccePllFI.s:1699   .debug_str:0000000000000148 .LASF7
+     /tmp/ccePllFI.s:1735   .debug_str:0000000000000273 .LASF8
+     /tmp/ccePllFI.s:1691   .debug_str:0000000000000113 .LASF9
+     /tmp/ccePllFI.s:1761   .debug_str:000000000000036f .LASF10
+GAS LISTING /tmp/ccePllFI.s 			page 16
 
 
-     /tmp/ccqlEGLp.s:1645   .debug_str:00000000000002de .LASF25
-     /tmp/ccqlEGLp.s:1389   .debug_loc:0000000000000220 .LLST11
-     /tmp/ccqlEGLp.s:40     .text:0000000000000020 .LFB1
-     /tmp/ccqlEGLp.s:233    .text:0000000000000134 .LFE1
-     /tmp/ccqlEGLp.s:1417   .debug_loc:00000000000002a3 .LLST1
-     /tmp/ccqlEGLp.s:1635   .debug_str:0000000000000297 .LASF26
-     /tmp/ccqlEGLp.s:1435   .debug_loc:00000000000002ef .LLST2
-     /tmp/ccqlEGLp.s:1450   .debug_loc:0000000000000338 .LLST3
-     /tmp/ccqlEGLp.s:1470   .debug_loc:0000000000000395 .LLST4
-     /tmp/ccqlEGLp.s:106    .text:0000000000000078 .LBB3
-     /tmp/ccqlEGLp.s:131    .text:00000000000000b4 .LBE3
-     /tmp/ccqlEGLp.s:1603   .debug_str:000000000000019f .LASF27
-     /tmp/ccqlEGLp.s:1503   .debug_loc:000000000000042c .LLST5
-     /tmp/ccqlEGLp.s:1561   .debug_ranges:0000000000000000 .Ldebug_ranges0
-     /tmp/ccqlEGLp.s:1589   .debug_str:0000000000000128 .LASF28
-     /tmp/ccqlEGLp.s:1510   .debug_loc:000000000000044f .LLST6
-     /tmp/ccqlEGLp.s:152    .text:00000000000000cc .LBB8
-     /tmp/ccqlEGLp.s:175    .text:00000000000000e8 .LBE8
-     /tmp/ccqlEGLp.s:1623   .debug_str:0000000000000236 .LASF29
-     /tmp/ccqlEGLp.s:1521   .debug_loc:0000000000000485 .LLST7
-     /tmp/ccqlEGLp.s:149    .text:00000000000000c8 .LVL15
-     /tmp/ccqlEGLp.s:65     .text:000000000000004c .LVL4
-     /tmp/ccqlEGLp.s:1619   .debug_str:000000000000021c .LASF38
-     /tmp/ccqlEGLp.s:9      .text:0000000000000000 .LFB0
-     /tmp/ccqlEGLp.s:34     .text:0000000000000020 .LFE0
-     /tmp/ccqlEGLp.s:1528   .debug_loc:00000000000004a8 .LLST0
-     /tmp/ccqlEGLp.s:242    .text:0000000000000134 .LVL21
-     /tmp/ccqlEGLp.s:318    .text:00000000000001a8 .LVL29
-     /tmp/ccqlEGLp.s:328    .text:00000000000001b4 .LVL30
-     /tmp/ccqlEGLp.s:365    .text:00000000000001f0 .LVL34
-     /tmp/ccqlEGLp.s:367    .text:00000000000001f4 .LVL35
-     /tmp/ccqlEGLp.s:371    .text:00000000000001f8 .LVL36
-     /tmp/ccqlEGLp.s:373    .text:00000000000001fc .LVL37
-     /tmp/ccqlEGLp.s:377    .text:0000000000000200 .LVL38
-     /tmp/ccqlEGLp.s:379    .text:0000000000000204 .LVL39
-     /tmp/ccqlEGLp.s:382    .text:0000000000000208 .LVL40
-     /tmp/ccqlEGLp.s:254    .text:0000000000000148 .LVL22
-     /tmp/ccqlEGLp.s:296    .text:0000000000000184 .LVL27
-     /tmp/ccqlEGLp.s:335    .text:00000000000001c0 .LVL31
-     /tmp/ccqlEGLp.s:258    .text:0000000000000150 .LVL23
-     /tmp/ccqlEGLp.s:269    .text:000000000000015c .LVL25
-     /tmp/ccqlEGLp.s:275    .text:0000000000000164 .LVL26
-     /tmp/ccqlEGLp.s:299    .text:0000000000000188 .LVL28
-     /tmp/ccqlEGLp.s:346    .text:00000000000001d0 .LVL32
-     /tmp/ccqlEGLp.s:349    .text:00000000000001d4 .LVL33
-     /tmp/ccqlEGLp.s:261    .text:0000000000000154 .LVL24
-     /tmp/ccqlEGLp.s:43     .text:0000000000000020 .LVL3
-     /tmp/ccqlEGLp.s:224    .text:000000000000012c .LVL20
-     /tmp/ccqlEGLp.s:67     .text:0000000000000050 .LVL5
-     /tmp/ccqlEGLp.s:147    .text:00000000000000c0 .LVL14
-     /tmp/ccqlEGLp.s:188    .text:00000000000000f8 .LVL18
-     /tmp/ccqlEGLp.s:212    .text:000000000000011c .LVL19
-     /tmp/ccqlEGLp.s:71     .text:0000000000000058 .LVL6
-     /tmp/ccqlEGLp.s:93     .text:000000000000006c .LVL8
-     /tmp/ccqlEGLp.s:99     .text:0000000000000074 .LVL9
-     /tmp/ccqlEGLp.s:79     .text:0000000000000060 .LVL7
-     /tmp/ccqlEGLp.s:103    .text:0000000000000078 .LVL10
-GAS LISTING /tmp/ccqlEGLp.s 			page 16
+     /tmp/ccePllFI.s:1703   .debug_str:0000000000000161 .LASF11
+     /tmp/ccePllFI.s:1753   .debug_str:000000000000034b .LASF12
+     /tmp/ccePllFI.s:1741   .debug_str:00000000000002c4 .LASF13
+     /tmp/ccePllFI.s:1715   .debug_str:00000000000001cd .LASF14
+     /tmp/ccePllFI.s:1697   .debug_str:0000000000000132 .LASF15
+     /tmp/ccePllFI.s:1737   .debug_str:0000000000000283 .LASF16
+     /tmp/ccePllFI.s:1729   .debug_str:0000000000000244 .LASF39
+     /tmp/ccePllFI.s:1683   .debug_str:000000000000002a .LASF17
+     /tmp/ccePllFI.s:1757   .debug_str:0000000000000365 .LASF18
+     /tmp/ccePllFI.s:1679   .debug_str:0000000000000013 .LASF19
+     /tmp/ccePllFI.s:1723   .debug_str:0000000000000225 .LASF40
+     /tmp/ccePllFI.s:1721   .debug_str:000000000000020c .LASF21
+     /tmp/ccePllFI.s:1755   .debug_str:000000000000035b .LASF20
+     /tmp/ccePllFI.s:1751   .debug_str:000000000000032a .LASF22
+     /tmp/ccePllFI.s:1743   .debug_str:00000000000002d4 .LASF23
+     /tmp/ccePllFI.s:1705   .debug_str:0000000000000170 .LASF24
+     /tmp/ccePllFI.s:1747   .debug_str:00000000000002e4 .LASF25
+     /tmp/ccePllFI.s:1739   .debug_str:0000000000000299 .LASF27
+     /tmp/ccePllFI.s:1719   .debug_str:00000000000001f1 .LASF26
+     /tmp/ccePllFI.s:1749   .debug_str:00000000000002f7 .LASF28
+     /tmp/ccePllFI.s:1685   .debug_str:000000000000002f .LASF41
+     /tmp/ccePllFI.s:416    .text:0000000000000228 .LFB4
+     /tmp/ccePllFI.s:435    .text:0000000000000244 .LFE4
+     /tmp/ccePllFI.s:391    .text:000000000000020c .LFB3
+     /tmp/ccePllFI.s:410    .text:0000000000000228 .LFE3
+     /tmp/ccePllFI.s:239    .text:0000000000000134 .LFB2
+     /tmp/ccePllFI.s:385    .text:000000000000020c .LFE2
+     /tmp/ccePllFI.s:1350   .debug_loc:0000000000000000 .LLST8
+     /tmp/ccePllFI.s:1701   .debug_str:000000000000015b .LASF29
+     /tmp/ccePllFI.s:1408   .debug_loc:00000000000000dd .LLST9
+     /tmp/ccePllFI.s:1687   .debug_str:000000000000004a .LASF30
+     /tmp/ccePllFI.s:1470   .debug_loc:00000000000001af .LLST10
+     /tmp/ccePllFI.s:1759   .debug_str:000000000000036a .LASF31
+     /tmp/ccePllFI.s:1495   .debug_loc:0000000000000220 .LLST11
+     /tmp/ccePllFI.s:40     .text:0000000000000020 .LFB1
+     /tmp/ccePllFI.s:233    .text:0000000000000134 .LFE1
+     /tmp/ccePllFI.s:1523   .debug_loc:00000000000002a3 .LLST1
+     /tmp/ccePllFI.s:1745   .debug_str:00000000000002dd .LASF32
+     /tmp/ccePllFI.s:1541   .debug_loc:00000000000002ef .LLST2
+     /tmp/ccePllFI.s:1556   .debug_loc:0000000000000338 .LLST3
+     /tmp/ccePllFI.s:1576   .debug_loc:0000000000000395 .LLST4
+     /tmp/ccePllFI.s:106    .text:0000000000000078 .LBB3
+     /tmp/ccePllFI.s:131    .text:00000000000000b4 .LBE3
+     /tmp/ccePllFI.s:1709   .debug_str:000000000000019f .LASF33
+     /tmp/ccePllFI.s:1609   .debug_loc:000000000000042c .LLST5
+     /tmp/ccePllFI.s:1667   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccePllFI.s:1695   .debug_str:0000000000000128 .LASF34
+     /tmp/ccePllFI.s:1616   .debug_loc:000000000000044f .LLST6
+     /tmp/ccePllFI.s:152    .text:00000000000000cc .LBB8
+     /tmp/ccePllFI.s:175    .text:00000000000000e8 .LBE8
+     /tmp/ccePllFI.s:1731   .debug_str:0000000000000251 .LASF35
+     /tmp/ccePllFI.s:1627   .debug_loc:0000000000000485 .LLST7
+     /tmp/ccePllFI.s:149    .text:00000000000000c8 .LVL15
+     /tmp/ccePllFI.s:65     .text:000000000000004c .LVL4
+     /tmp/ccePllFI.s:1727   .debug_str:0000000000000237 .LASF42
+     /tmp/ccePllFI.s:9      .text:0000000000000000 .LFB0
+     /tmp/ccePllFI.s:34     .text:0000000000000020 .LFE0
+GAS LISTING /tmp/ccePllFI.s 			page 17
 
 
-     /tmp/ccqlEGLp.s:133    .text:00000000000000b8 .LVL12
-     /tmp/ccqlEGLp.s:116    .text:0000000000000098 .LVL11
-     /tmp/ccqlEGLp.s:142    .text:00000000000000bc .LVL13
-     /tmp/ccqlEGLp.s:158    .text:00000000000000d4 .LVL16
-     /tmp/ccqlEGLp.s:173    .text:00000000000000e8 .LVL17
-     /tmp/ccqlEGLp.s:13     .text:0000000000000000 .LVL0
-     /tmp/ccqlEGLp.s:23     .text:0000000000000010 .LVL1
-     /tmp/ccqlEGLp.s:26     .text:0000000000000014 .LVL2
-     /tmp/ccqlEGLp.s:400    .debug_info:0000000000000000 .Ldebug_info0
-     /tmp/ccqlEGLp.s:138    .text:00000000000000b8 .LBB6
-     /tmp/ccqlEGLp.s:190    .text:00000000000000f8 .LBE6
-     /tmp/ccqlEGLp.s:217    .text:000000000000011c .LBB9
-     /tmp/ccqlEGLp.s:226    .text:000000000000012c .LBE9
+     /tmp/ccePllFI.s:1634   .debug_loc:00000000000004a8 .LLST0
+     /tmp/ccePllFI.s:242    .text:0000000000000134 .LVL21
+     /tmp/ccePllFI.s:318    .text:00000000000001a8 .LVL29
+     /tmp/ccePllFI.s:328    .text:00000000000001b4 .LVL30
+     /tmp/ccePllFI.s:365    .text:00000000000001f0 .LVL34
+     /tmp/ccePllFI.s:367    .text:00000000000001f4 .LVL35
+     /tmp/ccePllFI.s:371    .text:00000000000001f8 .LVL36
+     /tmp/ccePllFI.s:373    .text:00000000000001fc .LVL37
+     /tmp/ccePllFI.s:377    .text:0000000000000200 .LVL38
+     /tmp/ccePllFI.s:379    .text:0000000000000204 .LVL39
+     /tmp/ccePllFI.s:382    .text:0000000000000208 .LVL40
+     /tmp/ccePllFI.s:254    .text:0000000000000148 .LVL22
+     /tmp/ccePllFI.s:296    .text:0000000000000184 .LVL27
+     /tmp/ccePllFI.s:335    .text:00000000000001c0 .LVL31
+     /tmp/ccePllFI.s:258    .text:0000000000000150 .LVL23
+     /tmp/ccePllFI.s:269    .text:000000000000015c .LVL25
+     /tmp/ccePllFI.s:275    .text:0000000000000164 .LVL26
+     /tmp/ccePllFI.s:299    .text:0000000000000188 .LVL28
+     /tmp/ccePllFI.s:346    .text:00000000000001d0 .LVL32
+     /tmp/ccePllFI.s:349    .text:00000000000001d4 .LVL33
+     /tmp/ccePllFI.s:261    .text:0000000000000154 .LVL24
+     /tmp/ccePllFI.s:43     .text:0000000000000020 .LVL3
+     /tmp/ccePllFI.s:224    .text:000000000000012c .LVL20
+     /tmp/ccePllFI.s:67     .text:0000000000000050 .LVL5
+     /tmp/ccePllFI.s:147    .text:00000000000000c0 .LVL14
+     /tmp/ccePllFI.s:188    .text:00000000000000f8 .LVL18
+     /tmp/ccePllFI.s:212    .text:000000000000011c .LVL19
+     /tmp/ccePllFI.s:71     .text:0000000000000058 .LVL6
+     /tmp/ccePllFI.s:93     .text:000000000000006c .LVL8
+     /tmp/ccePllFI.s:99     .text:0000000000000074 .LVL9
+     /tmp/ccePllFI.s:79     .text:0000000000000060 .LVL7
+     /tmp/ccePllFI.s:103    .text:0000000000000078 .LVL10
+     /tmp/ccePllFI.s:133    .text:00000000000000b8 .LVL12
+     /tmp/ccePllFI.s:116    .text:0000000000000098 .LVL11
+     /tmp/ccePllFI.s:142    .text:00000000000000bc .LVL13
+     /tmp/ccePllFI.s:158    .text:00000000000000d4 .LVL16
+     /tmp/ccePllFI.s:173    .text:00000000000000e8 .LVL17
+     /tmp/ccePllFI.s:13     .text:0000000000000000 .LVL0
+     /tmp/ccePllFI.s:23     .text:0000000000000010 .LVL1
+     /tmp/ccePllFI.s:26     .text:0000000000000014 .LVL2
+     /tmp/ccePllFI.s:450    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccePllFI.s:138    .text:00000000000000b8 .LBB6
+     /tmp/ccePllFI.s:190    .text:00000000000000f8 .LBE6
+     /tmp/ccePllFI.s:217    .text:000000000000011c .LBB9
+     /tmp/ccePllFI.s:226    .text:000000000000012c .LBE9
 
 UNDEFINED SYMBOLS
 HEAP_START_ADDR

@@ -27,8 +27,8 @@ void Riscv::handleSupervisorTrap()
         __asm__ volatile("mv %0, sp":"=r"(context));
         uint64 opcode = context[10];
         uint64 a1 = context[11];
-        uint64 a2 = context[12];
-        uint64 a3 = context[13];
+//        uint64 a2 = context[12];
+//        uint64 a3 = context[13];
         void* ptr;
         switch(opcode){
             case MEM_ALLOC: {
@@ -46,39 +46,51 @@ void Riscv::handleSupervisorTrap()
 
                 break;
             }
-            case MEM_GET_LARGEST_BLOCK_SIZE:
+            case MEM_GET_LARGEST_BLOCK_SIZE: {
 
                 break;
-            case THREAD_CREATE:
+            }
+            case THREAD_CREATE: {
 
                 break;
-            case THREAD_EXIT:
+            }
+            case THREAD_EXIT: {
 
                 break;
-            case THREAD_DISPATCH:
+            }
+            case THREAD_DISPATCH: {
+                TCB::timeSliceCounter = 0;
+                TCB::dispatch();
+                break;
+            }
+            case SEM_OPEN: {
 
                 break;
-            case SEM_OPEN:
+            }
+            case SEM_CLOSE: {
 
                 break;
-            case SEM_CLOSE:
+            }
+            case SEM_WAIT: {
 
                 break;
-            case SEM_WAIT:
+            }
+            case SEM_SIGNAL: {
 
                 break;
-            case SEM_SIGNAL:
+            }
+            case TIME_SLEEP: {
 
                 break;
-            case TIME_SLEEP:
+            }
+            case GETC: {
 
                 break;
-            case GETC:
+            }
+            case PUTC: {
 
                 break;
-            case PUTC:
-
-                break;
+            }
         }
         w_sstatus(sstatus);
         w_sepc(sepc);
@@ -109,3 +121,5 @@ void Riscv::handleSupervisorTrap()
         // unexpected trap cause
     }
 }
+
+

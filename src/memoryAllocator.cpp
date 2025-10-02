@@ -87,9 +87,9 @@ int MemoryAllocator::mem_free(void *ptr) {
 
 
 size_t MemoryAllocator::mem_get_free_space() {
-
+    return 0;
 }
 
 size_t MemoryAllocator::mem_get_largest_free_block() {
-
+    return 0;
 }
