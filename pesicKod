@@ -1,65 +1,52 @@
-#include "../h/syscall_c.hpp" // Uključujemo API za sistemske pozive
+#include "../h/tcb.hpp"
+#include "../h/workers.hpp"
+#include "../h/print.hpp"
+#include "../h/riscv.hpp"
 #include "../h/MemoryAllocator.hpp"
-#include "../h/TCB.hpp"
-#include "../test/printing.hpp" // Pretpostavljam da ti je ovde printString
-#include "../h/workers.hpp"     // Pretpostavljam da su ti ovde workerBody funkcije
+#include "../h/syscall_c.hpp" // OBAVEZNO DODATI - zbog thread_dispatch()
 
-// Funkcija koja pokreće korisnički deo programa
-void userMain() {
-    // Kreiramo niti koristeći sistemski poziv thread_create
-    // thread_t je samo wrapper oko TCB*
-    thread_t threads[4];
+int main()
+{
+    // Inicijalizacija sistema - OVO JE NEOPHODNO
+    MemoryAllocator::getInstance();
+    TCB::init(); // Kreira glavnu (running) i idle nit
 
-    thread_create(&threads[0], workerBodyA, nullptr);
-    printString("ThreadA created\n");
-
-    thread_create(&threads[1], workerBodyB, nullptr);
-    printString("ThreadB created\n");
-
-    thread_create(&threads[2], workerBodyC, nullptr);
-    printString("ThreadC created\n");
-
-    thread_create(&threads[3], workerBodyD, nullptr);
-    printString("ThreadD created\n");
-
-    // Glavna nit više ne čeka u petlji.
-    // Kada se sve ostale niti završe, scheduler više neće imati
-    // koga da aktivira i sistem će se efektivno zaustaviti u idle niti.
-    // Za sada, možemo samo da pustimo da se sve izvrši.
-    // U budućnosti, ovde bi se koristila `thread_join` funkcija.
-}
-
-
-int main() {
-    // ===== FAZA 1: Inicijalizacija Kernela =====
-
-    // 1. Inicijalizuj memorijski alokator
-    MemoryAllocator::getInstance(); // Pozivamo da bi se pozvao konstruktor i inicijalizovao heap
-    
-    // 2. Inicijalizuj sistem niti (kreira se glavna i idle nit)
-    TCB::init();
-
-    // 3. Postavi prekidnu rutinu
+    // Postavljanje prekidne rutine
     Riscv::w_stvec((uint64)&Riscv::supervisorTrap);
 
+    // Kreiranje radnih niti, kao i pre
+    TCB *threads[4]; // Smanjili smo niz, jer glavnu nit ne pravimo ručno
 
-    // ===== FAZA 2: Kreiranje prve korisničke niti =====
-    
-    // Kreiramo nit koja će pokrenuti `userMain`, a `userMain` će
-    // onda kreirati sve ostale niti.
-    thread_t userMainThread;
-    thread_create(&userMainThread, (TCB::Body)userMain, nullptr);
+    // Potrebno je kastovati funkcije jer novi TCB::Body prima (void*), a naši workeri ne.
+    threads[0] = TCB::createThread((TCB::Body)workerBodyA, nullptr);
+    printString("ThreadA created\n");
+    threads[1] = TCB::createThread((TCB::Body)workerBodyB, nullptr);
+    printString("ThreadB created\n");
+    threads[2] = TCB::createThread((TCB::Body)workerBodyC, nullptr);
+    printString("ThreadC created\n");
+    threads[3] = TCB::createThread((TCB::Body)workerBodyD, nullptr);
+    printString("ThreadD created\n");
 
+    // Omogućavanje prekida da bi multitasking radio
+    Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
 
-    // ===== FAZA 3: Čekanje da se sve završi =====
-
-    // Čekamo da se `userMainThread` (i sve niti koje on kreira) završe.
-    // Pošto još nemamo `thread_join`, glavna (kernel) nit će se vrteti
-    // u petlji i prepuštati procesor drugima.
-    while(true) {
+    // Petlja koja čeka da se sve niti završe, kao i pre
+    while (!(threads[0]->getStatus() == TCB::Status::FINISHED &&
+             threads[1]->getStatus() == TCB::Status::FINISHED &&
+             threads[2]->getStatus() == TCB::Status::FINISHED &&
+             threads[3]->getStatus() == TCB::Status::FINISHED))
+    {
+        // Umesto TCB::yield(), koristimo sistemski poziv thread_dispatch()
         thread_dispatch();
     }
 
+    // Brisanje niti se ne preporučuje na ovaj način, ali zadržavamo radi
+    // konzistentnosti sa tvojim originalnim testom.
+    for (auto &thread: threads)
+    {
+        // U realnom sistemu, dealokacija bi se radila drugačije
+    }
+    printString("Finished\n");
 
     return 0;
 }
