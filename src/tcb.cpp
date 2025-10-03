@@ -4,13 +4,22 @@
 
 #include "../h/tcb.hpp"
 #include "../h/riscv.hpp"
+#include "../h/syscall_c.hpp"
 
 TCB *TCB::running = nullptr;
 
 uint64 TCB::timeSliceCounter = 0;
 
-TCB *TCB::createThread(Body body, void* arg, uint64* stack)
-{
+int TCB::createThread(thread_t *handle, Body body, void* arg, uint64* stack){
+    handle = new TCB(body, arg, stack);
+    if(handle){
+        Scheduler::put(handle);
+        return 0;
+    }
+    return -1;
+}
+
+TCB* TCB::createThread1(thread_t *handle, Body body, void* arg, uint64* stack){
     return new TCB(body, arg, stack);
 }
 

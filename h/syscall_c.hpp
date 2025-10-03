@@ -12,7 +12,8 @@ size_t mem_get_free_space();
 size_t mem_get_largest_free_block();
 
 class _thread;
-typedef _thread* thread_t;
+class TCB;
+typedef TCB thread_t;
 
 int thread_create (
     thread_t* handle,

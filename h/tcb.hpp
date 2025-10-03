@@ -7,6 +7,7 @@
 
 #include "../lib/hw.h"
 #include "scheduler.hpp"
+#include "syscall_c.hpp"
 
 // Thread Control Block
 class TCB
@@ -32,24 +33,27 @@ public:
 
     using Body = void (*)();
 
-    static TCB *createThread(Body body, void* arg, uint64* stack);
+    static int createThread(thread_t *handle, Body body, void* arg, uint64* stack);
 
     static void yield();
 
     static TCB *running;
 
+    static TCB* createThread1(thread_t *handle, Body body, void* arg, uint64* stack);
 private:
-//    TCB(Body body, uint64 timeSlice) :
-//            body(body),
-//            stack(body != nullptr ? new uint64[STACK_SIZE] : nullptr),
-//            context({(uint64) &threadWrapper,
-//                     stack != nullptr ? (uint64) &stack[STACK_SIZE] : 0
-//                    }),
-//            timeSlice(timeSlice),
-//            finished(false)
-//    {
-//        if (body != nullptr) { Scheduler::put(this); }
-//    }
+    TCB(Body body, uint64 timeSlice) :
+            body(body),
+            stack(body != nullptr ? new uint64[STACK_SIZE] : nullptr),
+            context({(uint64) &threadWrapper,
+                     stack != nullptr ? (uint64) &stack[STACK_SIZE] : 0
+                    }),
+            timeSlice(timeSlice),
+            finished(false)
+    {
+        if (body != nullptr) { Scheduler::put(this); }
+    }
+
+
     TCB(Body body, void* arg, uint64* stack_space):
     body(body),
     stack(stack_space == nullptr ? new uint64[STACK_SIZE] : stack_space), //proveriti
@@ -58,7 +62,22 @@ private:
     finished(false),
     status(CREATED){
         this->arg = arg;
+        if(body!= nullptr)
+            Scheduler::put(this);
     };
+
+    TCB(Body body, void* arg, uint64* stack_space):
+            body(body),
+            stack(stack_space == nullptr ? new uint64[STACK_SIZE] : stack_space), //proveriti
+            context{(uint64)&threadWrapper,stack == nullptr ? 0 : (uint64)stack + DEFAULT_STACK_SIZE},
+            timeSlice(DEFAULT_TIME_SLICE),
+            finished(false),
+            status(CREATED){
+        this->arg = arg;
+        if(body!= nullptr)
+            Scheduler::put(this);
+    };
+
 
     Body body;
     uint64 *stack;
@@ -87,6 +106,8 @@ private:
     static uint64 constexpr STACK_SIZE = 1024;
     static uint64 constexpr TIME_SLICE = 2;
     Status status;
+
+
 };
 
 #endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_TCB_HPP

@@ -7,9 +7,13 @@
 #include "../h/print.hpp"
 #include "../h/riscv.hpp"
 #include "../h/MemoryAllocator.hpp"
+#include "../h/syscall_c.hpp"
+
+
 
 int main()
 {
+
     MemoryAllocator::initialise();
     TCB *threads[5];
 

@@ -7,6 +7,8 @@
 #include "../lib/console.h"
 #include "../h/MemoryAllocator.hpp"
 
+using Body=void(*)(void*);
+
 void Riscv::popSppSpie()
 {
     __asm__ volatile("csrw sepc, ra");
@@ -51,7 +53,17 @@ void Riscv::handleSupervisorTrap()
                 break;
             }
             case THREAD_CREATE: {
-
+                TCB** volatile h;
+                uint64* volatile stack_space;
+                Body volatile body;
+                void* volatile arg;
+                __asm__ volatile("ld %0, 88(s0)":"=r"(h));
+                __asm__ volatile("mv %0, a2":"=r"(body));
+                __asm__ volatile("mv %0, a6":"=r"(stack_space));
+                __asm__ volatile("mv %0, a7":"=r"(arg));
+                uint64 volatile r;
+                r = TCB::createThread(*h, (void (*)()) body, arg, stack_space); // <--- proveriti
+                __asm__ volatile("mv a0, %0"::"r"(r));
                 break;
             }
             case THREAD_EXIT: {
