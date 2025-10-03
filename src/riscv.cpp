@@ -19,7 +19,7 @@ void Riscv::handleSupervisorTrap()
     if (scause == ECALL_USER || scause == ECALL_SUPER)
     {
         // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
-        uint64 volatile sepc = r_sepc() + 4;
+        uint64 volatile sepc = r_sepc();
         uint64 volatile sstatus = r_sstatus();
 //        TCB::timeSliceCounter = 0;
 //        TCB::dispatch();
@@ -92,6 +92,7 @@ void Riscv::handleSupervisorTrap()
                 break;
             }
         }
+        sepc += 4;
         w_sstatus(sstatus);
         w_sepc(sepc);
     }
