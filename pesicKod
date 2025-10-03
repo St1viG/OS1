@@ -1,46 +1,65 @@
-pesic kod:
+#include "../h/syscall_c.hpp" // Uključujemo API za sistemske pozive
+#include "../h/MemoryAllocator.hpp"
+#include "../h/TCB.hpp"
+#include "../test/printing.hpp" // Pretpostavljam da ti je ovde printString
+#include "../h/workers.hpp"     // Pretpostavljam da su ti ovde workerBody funkcije
+
+// Funkcija koja pokreće korisnički deo programa
+void userMain() {
+    // Kreiramo niti koristeći sistemski poziv thread_create
+    // thread_t je samo wrapper oko TCB*
+    thread_t threads[4];
+
+    thread_create(&threads[0], workerBodyA, nullptr);
+    printString("ThreadA created\n");
+
+    thread_create(&threads[1], workerBodyB, nullptr);
+    printString("ThreadB created\n");
+
+    thread_create(&threads[2], workerBodyC, nullptr);
+    printString("ThreadC created\n");
+
+    thread_create(&threads[3], workerBodyD, nullptr);
+    printString("ThreadD created\n");
+
+    // Glavna nit više ne čeka u petlji.
+    // Kada se sve ostale niti završe, scheduler više neće imati
+    // koga da aktivira i sistem će se efektivno zaustaviti u idle niti.
+    // Za sada, možemo samo da pustimo da se sve izvrši.
+    // U budućnosti, ovde bi se koristila `thread_join` funkcija.
+}
 
 
-#ifndef PROJECT_BASE_V1_1_MEMORYALLOCATOR_HPP
-#define PROJECT_BASE_V1_1_MEMORYALLOCATOR_HPP
+int main() {
+    // ===== FAZA 1: Inicijalizacija Kernela =====
 
-#include "../lib/hw.h"
+    // 1. Inicijalizuj memorijski alokator
+    MemoryAllocator::getInstance(); // Pozivamo da bi se pozvao konstruktor i inicijalizovao heap
+    
+    // 2. Inicijalizuj sistem niti (kreira se glavna i idle nit)
+    TCB::init();
 
-class MemoryAllocator {
-public:
+    // 3. Postavi prekidnu rutinu
+    Riscv::w_stvec((uint64)&Riscv::supervisorTrap);
 
-    static void init();
-    static void* mem_alloc (size_t size);
-    static int mem_free (void* p);
 
-    static uint64 getFreeSpaceBytes();
-    static uint64 getLargestFreeBlockBytes();
-    static uint64 size_to_blocks(size_t bytes);
+    // ===== FAZA 2: Kreiranje prve korisničke niti =====
+    
+    // Kreiramo nit koja će pokrenuti `userMain`, a `userMain` će
+    // onda kreirati sve ostale niti.
+    thread_t userMainThread;
+    thread_create(&userMainThread, (TCB::Body)userMain, nullptr);
 
-    struct memBlock{
-        size_t sizeBlocks;
-        bool isFree;
-        memBlock* next;
-        memBlock* prev;
-    };
 
-private:
+    // ===== FAZA 3: Čekanje da se sve završi =====
 
-    static memBlock* freeHead;
-    static uint64 heapStart;
-    static uint64 heapEnd;
+    // Čekamo da se `userMainThread` (i sve niti koje on kreira) završe.
+    // Pošto još nemamo `thread_join`, glavna (kernel) nit će se vrteti
+    // u petlji i prepuštati procesor drugima.
+    while(true) {
+        thread_dispatch();
+    }
 
-    static memBlock* userHeader(void* userPtr);
-    static void* headerUser(memBlock* h);
-    static void insertSorted(memBlock* blk);
-    static void removeFree(memBlock* blk);
-    static void split(memBlock* blk, size_t needBlocks);
-    static void tryCoalesce(memBlock* blk);
-};
 
-#endif //PROJECT_BASE_V1_1_MEMORYALLOCATOR_HPP
-﻿
-Dimitrije
-dimitrijepesicc
- 
- 
+    return 0;
+}
