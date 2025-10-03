@@ -16,6 +16,7 @@ void *operator new(size_t n)
 
 void *operator new[](size_t n)
 {
+
 //    return __mem_alloc(n);
     return MemoryAllocator::mem_alloc(n);
 
@@ -23,12 +24,10 @@ void *operator new[](size_t n)
 
 void operator delete(void *p) noexcept
 {
-    __mem_free(p);
-//    MemoryAllocator::mem_free(p);
+    MemoryAllocator::mem_free(p);
 }
 
 void operator delete[](void *p) noexcept
 {
-    __mem_free(p);
-//    MemoryAllocator::mem_free(p);
+    MemoryAllocator::mem_free(p);
 }

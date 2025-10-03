@@ -6,9 +6,12 @@
 #include "../h/workers.hpp"
 #include "../h/print.hpp"
 #include "../h/riscv.hpp"
+#include "../h/MemoryAllocator.hpp"
+#include "../h/syscall_c.hpp"
 
 int main()
 {
+    MemoryAllocator::initialise();
     TCB *threads[5];
 
     threads[0] = TCB::createThread(nullptr);
@@ -31,7 +34,8 @@ int main()
              threads[3]->isFinished() &&
              threads[4]->isFinished()))
     {
-        TCB::yield();
+//        TCB::yield();
+    thread_dispatch();
     }
 
     for (auto &thread: threads)

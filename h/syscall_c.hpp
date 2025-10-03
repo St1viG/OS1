@@ -22,7 +22,10 @@ int thread_create (
 
 int thread_exit ();
 
-void thread_dispatch ();
+void thread_dispatch (){
+    __asm__ volatile ("li a0, 0x13");
+    __asm__ volatile ("ecall");
+};;
 
 class _sem;
 typedef _sem* sem_t;

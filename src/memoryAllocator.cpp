@@ -4,6 +4,12 @@
 
 FreeMemBlock *MemoryAllocator::head = nullptr;
 
+void MemoryAllocator::initialise() {
+    head = (FreeMemBlock*)HEAP_START_ADDR;
+    head->next = nullptr;
+    head->size = ((size_t)HEAP_END_ADDR - (size_t)HEAP_START_ADDR) / MEM_BLOCK_SIZE;
+}
+
 static size_t blocksNeeded(size_t b){
     return (b + sizeof(FreeMemBlock) + MEM_BLOCK_SIZE - 1 )/ MEM_BLOCK_SIZE;
 }
@@ -16,17 +22,6 @@ void* MemoryAllocator::mem_alloc(size_t size) {
 
     FreeMemBlock *curr = head, *prev = nullptr;
 
-    if(head == nullptr){
-        size_t NOBlocks = ((size_t)HEAP_END_ADDR - (size_t)HEAP_START_ADDR) / MEM_BLOCK_SIZE;
-
-        if(needed > NOBlocks)
-            return nullptr;
-        else{
-            head = (FreeMemBlock*)HEAP_START_ADDR;
-            head->next = nullptr;
-            head->size = NOBlocks;
-        }
-    }
     while(curr){
         if(curr->size >= needed){
             size_t remaining = curr->size - needed;

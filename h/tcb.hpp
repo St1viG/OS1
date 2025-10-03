@@ -6,65 +6,60 @@
 #define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_TCB_HPP
 
 #include "../lib/hw.h"
-#include "scheduler.hpp"
+#include "../h/scheduler.hpp"
+
+
+class Riscv;
+
 
 // Thread Control Block
 class TCB
 {
 public:
-    ~TCB() { delete[] stack; }
+    enum Status {CREATED, READY, RUNNING, FINISHED, SLEEPING};
 
-    bool isFinished() const { return finished; }
+    using Body = void (*)(void*);
 
-    void setFinished(bool value) { finished = value; }
+    static void thread_initialise();
 
-    uint64 getTimeSlice() const { return timeSlice; }
+    static TCB* createThread(Body body, void* a);
 
-    using Body = void (*)();
-
-    static TCB *createThread(Body body);
-
-    static void yield();
-
-    static TCB *running;
-
-private:
-    TCB(Body body, uint64 timeSlice) :
-            body(body),
-            stack(body != nullptr ? new uint64[STACK_SIZE] : nullptr),
-            context({(uint64) &threadWrapper,
-                     stack != nullptr ? (uint64) &stack[STACK_SIZE] : 0
-                    }),
-            timeSlice(timeSlice),
-            finished(false)
-    {
-        if (body != nullptr) { Scheduler::put(this); }
-    }
-
-    struct Context
-    {
-        uint64 ra;
-        uint64 sp;
-    };
-
-    Body body;
-    uint64 *stack;
-    Context context;
-    uint64 timeSlice;
-    bool finished;
-
-    friend class Riscv;
-
-    static void threadWrapper();
-
-    static void contextSwitch(Context *oldContext, Context *runningContext);
+    static int thread_exit();
 
     static void dispatch();
 
+    static TCB* running;
+
+private:
+
+    TCB(Body body, void* a, uint64* stack);
+
+    struct Context{
+        uint64 ra;
+        uint64 sp;
+        uint64 s[12];
+    };
+
+    Body body;
+    void* a;
+    uint64* stack;
+    Context context;
+    Status status;
+    uint64 timeSlice;
+
+    friend class Riscv;
+    friend class timeSlice;
+
+    static void contextSwitch(Context *oldC, Context *newC);
+    static TCB* idle;
     static uint64 timeSliceCounter;
 
     static uint64 constexpr STACK_SIZE = 1024;
     static uint64 constexpr TIME_SLICE = 2;
+
+    static void idleWrapper(void *a);
+
+    static void threadWrapper();
 };
 
 #endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_TCB_HPP
