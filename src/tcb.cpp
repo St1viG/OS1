@@ -9,9 +9,9 @@ TCB *TCB::running = nullptr;
 
 uint64 TCB::timeSliceCounter = 0;
 
-TCB *TCB::createThread(Body body)
+TCB *TCB::createThread(Body body, void* arg, uint64* stack)
 {
-    return new TCB(body, TIME_SLICE);
+    return new TCB(body, arg, stack);
 }
 
 void TCB::yield()

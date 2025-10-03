@@ -13,16 +13,20 @@ int main()
     MemoryAllocator::initialise();
     TCB *threads[5];
 
-    threads[0] = TCB::createThread(nullptr);
+    threads[0] = TCB::createThread(nullptr, nullptr, nullptr);
     TCB::running = threads[0];
 
-    threads[1] = TCB::createThread(workerBodyA);
+    void * StackA = MemoryAllocator::mem_alloc(DEFAULT_STACK_SIZE);
+    threads[1] = TCB::createThread(workerBodyA, nullptr, (uint64*) StackA);
     printString("ThreadA created\n");
-    threads[2] = TCB::createThread(workerBodyB);
+    void * StackB = MemoryAllocator::mem_alloc(DEFAULT_STACK_SIZE);
+    threads[2] = TCB::createThread(workerBodyB, nullptr, (uint64*) StackB);
     printString("ThreadB created\n");
-    threads[3] = TCB::createThread(workerBodyC);
+    void * StackC = MemoryAllocator::mem_alloc(DEFAULT_STACK_SIZE);
+    threads[3] = TCB::createThread(workerBodyC, nullptr, (uint64*) StackC);
     printString("ThreadC created\n");
-    threads[4] = TCB::createThread(workerBodyD);
+    void * StackD = MemoryAllocator::mem_alloc(DEFAULT_STACK_SIZE);
+    threads[4] = TCB::createThread(workerBodyD, nullptr, (uint64*) StackD);
     printString("ThreadD created\n");
 
     Riscv::w_stvec((uint64) &Riscv::supervisorTrap);

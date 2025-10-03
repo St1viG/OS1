@@ -32,46 +32,44 @@ public:
 
     using Body = void (*)();
 
-    static TCB *createThread(Body body);
+    static TCB *createThread(Body body, void* arg, uint64* stack);
 
     static void yield();
 
     static TCB *running;
 
 private:
-    TCB(Body body, uint64 timeSlice) :
-            body(body),
-            stack(body != nullptr ? new uint64[STACK_SIZE] : nullptr),
-            context({(uint64) &threadWrapper,
-                     stack != nullptr ? (uint64) &stack[STACK_SIZE] : 0
-                    }),
-            timeSlice(timeSlice),
-            finished(false)
-    {
-        if (body != nullptr) { Scheduler::put(this); }
-    }
-    TCB(Body body, void* arg, void* stack_space):
-    status(CREATED),
-    stack(body!= nullptr ? ((uint64*)(stack + DEFAULT_STACK_SIZE)) : nullptr),
+//    TCB(Body body, uint64 timeSlice) :
+//            body(body),
+//            stack(body != nullptr ? new uint64[STACK_SIZE] : nullptr),
+//            context({(uint64) &threadWrapper,
+//                     stack != nullptr ? (uint64) &stack[STACK_SIZE] : 0
+//                    }),
+//            timeSlice(timeSlice),
+//            finished(false)
+//    {
+//        if (body != nullptr) { Scheduler::put(this); }
+//    }
+    TCB(Body body, void* arg, uint64* stack_space):
     body(body),
-    context(
-            {
-                body == nullptr ? 0 : (uint64)&threadWrapper,
-                stack == nullptr ? 0 : (uint64*)stack + DEFAULT_STACK_SIZE
-            }
-            )
-    {
+    stack(stack_space == nullptr ? new uint64[STACK_SIZE] : stack_space), //proveriti
+    context{(uint64)&threadWrapper,stack == nullptr ? 0 : (uint64)stack + DEFAULT_STACK_SIZE},
+    timeSlice(DEFAULT_TIME_SLICE),
+    finished(false),
+    status(CREATED){
+        this->arg = arg;
+    };
 
-    }
-
+    Body body;
+    uint64 *stack;
     struct Context
     {
         uint64 ra;
         uint64 sp;
     };
 
-    Body body;
-    uint64 *stack;
+
+    void* arg;
     Context context;
     uint64 timeSlice;
     bool finished;
