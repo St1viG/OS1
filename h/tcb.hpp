@@ -12,6 +12,16 @@
 class TCB
 {
 public:
+
+    enum Status{
+        CREATED,
+        READY,
+        RUNNING,
+        BLOCKED,
+        SLEEPING,
+        FINISHED
+    };
+
     ~TCB() { delete[] stack; }
 
     bool isFinished() const { return finished; }
@@ -40,6 +50,19 @@ private:
     {
         if (body != nullptr) { Scheduler::put(this); }
     }
+    TCB(Body body, void* arg, void* stack_space):
+    status(CREATED),
+    stack(body!= nullptr ? ((uint64*)(stack + DEFAULT_STACK_SIZE)) : nullptr),
+    body(body),
+    context(
+            {
+                body == nullptr ? 0 : (uint64)&threadWrapper,
+                stack == nullptr ? 0 : (uint64*)stack + DEFAULT_STACK_SIZE
+            }
+            )
+    {
+
+    }
 
     struct Context
     {
@@ -65,6 +88,7 @@ private:
 
     static uint64 constexpr STACK_SIZE = 1024;
     static uint64 constexpr TIME_SLICE = 2;
+    Status status;
 };
 
 #endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_TCB_HPP
