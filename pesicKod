@@ -1,46 +1,52 @@
-pesic kod:
+#include "../h/tcb.hpp"
+#include "../h/workers.hpp"
+#include "../h/print.hpp"
+#include "../h/riscv.hpp"
+#include "../h/MemoryAllocator.hpp"
+#include "../h/syscall_c.hpp" // OBAVEZNO DODATI - zbog thread_dispatch()
 
+int main()
+{
+    // Inicijalizacija sistema - OVO JE NEOPHODNO
+    MemoryAllocator::getInstance();
+    TCB::init(); // Kreira glavnu (running) i idle nit
 
-#ifndef PROJECT_BASE_V1_1_MEMORYALLOCATOR_HPP
-#define PROJECT_BASE_V1_1_MEMORYALLOCATOR_HPP
+    // Postavljanje prekidne rutine
+    Riscv::w_stvec((uint64)&Riscv::supervisorTrap);
 
-#include "../lib/hw.h"
+    // Kreiranje radnih niti, kao i pre
+    TCB *threads[4]; // Smanjili smo niz, jer glavnu nit ne pravimo ručno
 
-class MemoryAllocator {
-public:
+    // Potrebno je kastovati funkcije jer novi TCB::Body prima (void*), a naši workeri ne.
+    threads[0] = TCB::createThread((TCB::Body)workerBodyA, nullptr);
+    printString("ThreadA created\n");
+    threads[1] = TCB::createThread((TCB::Body)workerBodyB, nullptr);
+    printString("ThreadB created\n");
+    threads[2] = TCB::createThread((TCB::Body)workerBodyC, nullptr);
+    printString("ThreadC created\n");
+    threads[3] = TCB::createThread((TCB::Body)workerBodyD, nullptr);
+    printString("ThreadD created\n");
 
-    static void init();
-    static void* mem_alloc (size_t size);
-    static int mem_free (void* p);
+    // Omogućavanje prekida da bi multitasking radio
+    Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
 
-    static uint64 getFreeSpaceBytes();
-    static uint64 getLargestFreeBlockBytes();
-    static uint64 size_to_blocks(size_t bytes);
+    // Petlja koja čeka da se sve niti završe, kao i pre
+    while (!(threads[0]->getStatus() == TCB::Status::FINISHED &&
+             threads[1]->getStatus() == TCB::Status::FINISHED &&
+             threads[2]->getStatus() == TCB::Status::FINISHED &&
+             threads[3]->getStatus() == TCB::Status::FINISHED))
+    {
+        // Umesto TCB::yield(), koristimo sistemski poziv thread_dispatch()
+        thread_dispatch();
+    }
 
-    struct memBlock{
-        size_t sizeBlocks;
-        bool isFree;
-        memBlock* next;
-        memBlock* prev;
-    };
+    // Brisanje niti se ne preporučuje na ovaj način, ali zadržavamo radi
+    // konzistentnosti sa tvojim originalnim testom.
+    for (auto &thread: threads)
+    {
+        // U realnom sistemu, dealokacija bi se radila drugačije
+    }
+    printString("Finished\n");
 
-private:
-
-    static memBlock* freeHead;
-    static uint64 heapStart;
-    static uint64 heapEnd;
-
-    static memBlock* userHeader(void* userPtr);
-    static void* headerUser(memBlock* h);
-    static void insertSorted(memBlock* blk);
-    static void removeFree(memBlock* blk);
-    static void split(memBlock* blk, size_t needBlocks);
-    static void tryCoalesce(memBlock* blk);
-};
-
-#endif //PROJECT_BASE_V1_1_MEMORYALLOCATOR_HPP
-﻿
-Dimitrije
-dimitrijepesicc
- 
- 
+    return 0;
+}
