@@ -30,6 +30,10 @@ public:
 
     static TCB* running;
 
+    Status getStatus() const {return status;}
+
+    uint64 getTimeSlice() const {return timeSlice;}
+
 private:
 
     TCB(Body body, void* a, uint64* stack);
@@ -60,6 +64,8 @@ private:
     static void idleWrapper(void *a);
 
     static void threadWrapper();
+
+
 };
 
 #endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_TCB_HPP

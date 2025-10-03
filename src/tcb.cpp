@@ -6,6 +6,7 @@
 #include "../h/riscv.hpp"
 #include "../h/MemoryAllocator.hpp"
 
+TCB *TCB::idle = nullptr;
 TCB *TCB::running = nullptr;
 
 uint64 TCB::timeSliceCounter = 0;
@@ -17,7 +18,7 @@ TCB::TCB(Body body, void* a, uint64* stack):
     stack(stack),
     context({(uint64)&threadWrapper,stack!= nullptr ? (uint64)&stack[DEFAULT_STACK_SIZE]:0}),
     status(CREATED),
-    timeSlice(timeSlice){
+    timeSlice(DEFAULT_TIME_SLICE){
 }
 
 void TCB::thread_initialise() {
