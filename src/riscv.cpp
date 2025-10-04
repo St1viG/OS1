@@ -6,6 +6,7 @@
 #include "../h/tcb.hpp"
 #include "../lib/console.h"
 #include "../h/MemoryAllocator.hpp"
+#include "../h/_sem.hpp"
 
 using Body=void(*)(void*);
 
@@ -23,26 +24,25 @@ void Riscv::handleSupervisorTrap()
         // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
         uint64 volatile sepc = r_sepc();
         uint64 volatile sstatus = r_sstatus();
-//        TCB::timeSliceCounter = 0;
-//        TCB::dispatch();
-        uint64* volatile context;
-        __asm__ volatile("mv %0, sp":"=r"(context));
-        uint64 opcode = context[10];
-        uint64 a1 = context[11];
+
+        uint64 opcode;
+        __asm__ volatile("mv %0, a0" : "=r"(opcode));
 
         void* ptr;
         switch(opcode){
             case MEM_ALLOC: {
-                size_t size = (size_t) a1;
+                size_t size;
+                __asm__ volatile ("mv %0, a1": "=r" (size));
                 ptr = MemoryAllocator::mem_alloc(size);
-                context[10] = (uint64) ptr;
+                __asm__ volatile ("mv a0, %0" : : "r"(ptr));
                 break;
             }
             case MEM_FREE:{
-                ptr = (void*)a1;
+                __asm__ volatile("mv %0, a1" : "=r" (ptr));
                 int res = MemoryAllocator::mem_free(ptr);
-                context[10] = res;
-                break;}
+                __asm volatile("mv a0, %0" : : "r" (res));
+                break;
+            }
             case MEM_GET_FREE_SPACE: {
 
                 break;
@@ -68,7 +68,7 @@ void Riscv::handleSupervisorTrap()
             case THREAD_EXIT: {
                 uint64 volatile ret;
                 ret = TCB::exit();
-                __asm__ volatile ("mv a0, %0"::"r"(ret));
+                __asm__ volatile ("mv a0, %0"::"r"(ret)); // potencijalno ne vracati nista
                 break;
             }
             case THREAD_DISPATCH: {
@@ -77,19 +77,38 @@ void Riscv::handleSupervisorTrap()
                 break;
             }
             case SEM_OPEN: {
-
+                sem_t* handle;
+                unsigned init;
+                __asm__ volatile("mv %0, a1" : "=r" (handle));
+                __asm__ volatile("mv %0, a2" : "=r" (init));
+                _sem* new_sem = new _sem(init);
+                if(new_sem){
+                    *handle = new_sem;
+                    __asm__ volatile("li a0, 0");
+                }else{
+                    __asm__ volatile("li a0, -1");
+                }
                 break;
             }
             case SEM_CLOSE: {
-
+                sem_t ID;
+                __asm__ volatile("mv %0, a1":"=r"(ID));
+                int res = ID->sem_close();
+                __asm__ volatile ("mv a0, %0": : "r"(res));
                 break;
             }
             case SEM_WAIT: {
-
+                sem_t handle;
+                __asm__ volatile ("mv %0, a1":"=r"(handle));
+                int res = handle->sem_wait();
+                __asm__ volatile ("mv a0, %0": : "r" (res));
                 break;
             }
             case SEM_SIGNAL: {
-
+                sem_t volatile handle;
+                __asm__ volatile ("mv %0, a1": "=r"(handle));
+                int ret = handle->sem_signal();
+                __asm__ volatile ("mv a0, %0": :"r"(ret));
                 break;
             }
             case TIME_SLEEP: {

@@ -20,7 +20,8 @@ public:
         RUNNING,
         BLOCKED,
         SLEEPING,
-        FINISHED
+        FINISHED,
+        WAITING
     };
 
     ~TCB() { delete[] stack; }
@@ -42,6 +43,13 @@ public:
     static TCB* createThread1(thread_t *handle, Body body, void* arg, uint64* stack);
 
     static int exit();
+
+    void setStatus(Status s);
+
+    static void dispatch();
+
+    Status getStatus();
+
 private:
     TCB(Body body, uint64 timeSlice) :
             body(body),
@@ -89,7 +97,7 @@ private:
 
     static void contextSwitch(Context *oldContext, Context *runningContext);
 
-    static void dispatch();
+
 
     static uint64 timeSliceCounter;
 

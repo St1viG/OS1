@@ -54,3 +54,11 @@ int TCB::exit() {
         return 0;
     }
 }
+
+void TCB::setStatus(TCB::Status s) {
+    this->status = s;
+}
+
+TCB::Status TCB::getStatus() {
+    return status;
+}

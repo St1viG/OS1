@@ -16,7 +16,7 @@ private:
 
         Elem(T *data, Elem *next) : data(data), next(next) {}
     };
-
+    int size = 0;
     Elem *head, *tail;
 
 public:
@@ -28,6 +28,7 @@ public:
 
     void addFirst(T *data)
     {
+        size++;
         Elem *elem = new Elem(data, head);
         head = elem;
         if (!tail) { tail = head; }
@@ -35,6 +36,7 @@ public:
 
     void addLast(T *data)
     {
+        size++;
         Elem *elem = new Elem(data, 0);
         if (tail)
         {
@@ -48,6 +50,7 @@ public:
 
     T *removeFirst()
     {
+        size--;
         if (!head) { return 0; }
 
         Elem *elem = head;
@@ -68,7 +71,7 @@ public:
     T *removeLast()
     {
         if (!head) { return 0; }
-
+        size--;
         Elem *prev = 0;
         for (Elem *curr = head; curr && curr != tail; curr = curr->next)
         {
@@ -89,6 +92,10 @@ public:
     {
         if (!tail) { return 0; }
         return tail->data;
+    }
+
+    int Size(){
+        return this->size;
     }
 };
 
