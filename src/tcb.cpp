@@ -12,9 +12,9 @@ TCB *TCB::running = nullptr;
 uint64 TCB::timeSliceCounter = 0;
 
 int TCB::createThread(thread_t *handle, Body body, void* arg, uint64* stack){
-    handle = new TCB(body, arg, stack);
-    if(handle){
-        Scheduler::put(handle);
+    *handle = new TCB(body, arg, stack);
+    if(*handle){
+        Scheduler::put(*handle);
         return 0;
     }
     return -1;

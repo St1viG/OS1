@@ -7,6 +7,7 @@
 #include "../lib/console.h"
 #include "../h/MemoryAllocator.hpp"
 #include "../h/_sem.hpp"
+#include "../h/sleepList.hpp"
 
 using Body=void(*)(void*);
 
@@ -61,7 +62,7 @@ void Riscv::handleSupervisorTrap()
                 __asm__ volatile("mv %0, a6":"=r"(stack_space));
                 __asm__ volatile("mv %0, a7":"=r"(arg));
                 uint64 volatile r;
-                r = TCB::createThread(*h, (void (*)()) body, arg, stack_space); // <--- proveriti
+                r = TCB::createThread(h, (void (*)()) body, arg, stack_space); // <--- proveriti
                 __asm__ volatile("mv a0, %0"::"r"(r));
                 break;
             }
@@ -127,14 +128,14 @@ void Riscv::handleSupervisorTrap()
                 break;
             }
         }
-        sepc += 4;
+//        sepc += 4;
         w_sstatus(sstatus);
-        w_sepc(sepc);
+        w_sepc(sepc + 4);
     }
     else if (scause == SOFTWARE)
     {
-
-        mc_sip(SIP_SSIP);
+        SleepList::tick();
+//        mc_sip(SIP_SSIP);
         TCB::timeSliceCounter++;
         if (TCB::timeSliceCounter >= TCB::running->getTimeSlice())
         {

@@ -79,7 +79,6 @@ int thread_create(thread_t *handle, void (*start_routine)(void *), void *arg) {
     __asm__ volatile ("mv a7, %0"::"r"((uint64 )arg));
     __asm__ volatile ("mv a2, %0"::"r"((uint64)start_routine));
     invoke(THREAD_CREATE);
-
     return 0;
 }
 

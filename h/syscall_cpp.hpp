@@ -3,8 +3,12 @@
 #include "syscall_c.hpp"
 #include "tcb.hpp"
 
-void* ::operator new (size_t);
-void ::operator delete (void*);
+void* operator new (size_t n){
+        return mem_alloc(n);
+};
+void operator delete (void* p){
+        mem_free(p);
+};
 class Thread {
         public:
         Thread (void (*body)(void*), void* arg);
@@ -13,7 +17,7 @@ class Thread {
         static void dispatch ();
         static int sleep (time_t);
         protected:
-        Thread ();
+        Thread (): myHandle(nullptr),body(nullptr),arg(nullptr){};
         virtual void run () {}
         private:
         thread_t myHandle;
