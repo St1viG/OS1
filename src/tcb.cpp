@@ -44,3 +44,13 @@ void TCB::threadWrapper()
     running->setFinished(true);
     TCB::yield();
 }
+
+int TCB::exit() {
+    if(running->status){
+        return -1;
+    }else{
+        running->status = FINISHED;
+        dispatch();
+        return 0;
+    }
+}

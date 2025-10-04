@@ -40,6 +40,8 @@ public:
     static TCB *running;
 
     static TCB* createThread1(thread_t *handle, Body body, void* arg, uint64* stack);
+
+    static int exit();
 private:
     TCB(Body body, uint64 timeSlice) :
             body(body),
@@ -61,18 +63,6 @@ private:
     timeSlice(DEFAULT_TIME_SLICE),
     finished(false),
     status(CREATED){
-        this->arg = arg;
-        if(body!= nullptr)
-            Scheduler::put(this);
-    };
-
-    TCB(Body body, void* arg, uint64* stack_space):
-            body(body),
-            stack(stack_space == nullptr ? new uint64[STACK_SIZE] : stack_space), //proveriti
-            context{(uint64)&threadWrapper,stack == nullptr ? 0 : (uint64)stack + DEFAULT_STACK_SIZE},
-            timeSlice(DEFAULT_TIME_SLICE),
-            finished(false),
-            status(CREATED){
         this->arg = arg;
         if(body!= nullptr)
             Scheduler::put(this);

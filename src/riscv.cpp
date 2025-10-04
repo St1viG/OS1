@@ -29,8 +29,7 @@ void Riscv::handleSupervisorTrap()
         __asm__ volatile("mv %0, sp":"=r"(context));
         uint64 opcode = context[10];
         uint64 a1 = context[11];
-//        uint64 a2 = context[12];
-//        uint64 a3 = context[13];
+
         void* ptr;
         switch(opcode){
             case MEM_ALLOC: {
@@ -67,7 +66,9 @@ void Riscv::handleSupervisorTrap()
                 break;
             }
             case THREAD_EXIT: {
-
+                uint64 volatile ret;
+                ret = TCB::exit();
+                __asm__ volatile ("mv a0, %0"::"r"(ret));
                 break;
             }
             case THREAD_DISPATCH: {
