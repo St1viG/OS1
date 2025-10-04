@@ -50,6 +50,8 @@ public:
 
     Status getStatus();
 
+    static int threadSleep(time_t time);
+
 private:
     TCB(Body body, uint64 timeSlice) :
             body(body),

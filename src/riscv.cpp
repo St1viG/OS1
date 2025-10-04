@@ -112,7 +112,10 @@ void Riscv::handleSupervisorTrap()
                 break;
             }
             case TIME_SLEEP: {
-
+                uint64 volatile time;
+                __asm__ volatile ("mv %0, a1":"=r"(time));
+                int ret = TCB::threadSleep(time);
+                __asm__ volatile ("mv a0, %0" :: "r"(ret));
                 break;
             }
             case GETC: {
@@ -130,7 +133,7 @@ void Riscv::handleSupervisorTrap()
     }
     else if (scause == SOFTWARE)
     {
-        // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
+
         mc_sip(SIP_SSIP);
         TCB::timeSliceCounter++;
         if (TCB::timeSliceCounter >= TCB::running->getTimeSlice())
@@ -145,14 +148,12 @@ void Riscv::handleSupervisorTrap()
     }
     else if (scause == EXTERNAL)
     {
-        // interrupt: yes; cause code: supervisor external interrupt (PLIC; could be keyboard)
-        console_handler();
+        int irq = plic_claim();
+        if(irq == CONSOLE_IRQ)
+            console_handler();
+        plic_complete(irq);
     }
-    else
-    {
 
-        // unexpected trap cause
-    }
 }
 
 

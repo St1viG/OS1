@@ -29,18 +29,13 @@ int thread_create (
 
 int thread_exit ();
 
-void inline thread_dispatch (){
-    __asm__ volatile ("li a0, 0x13");
-    __asm__ volatile ("ecall");
-};
+void  thread_dispatch ();
 
 class _sem;
 typedef _sem* sem_t;
 
-int sem_open (
-        sem_t* handle,
-        unsigned  init
-        );
+int sem_open (sem_t* handle,
+        unsigned  init);
 
 int sem_close (sem_t handle);
 

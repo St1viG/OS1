@@ -110,7 +110,7 @@ public:
 private:
 
     // supervisor trap handler
-    static void handleSupervisorTrap();
+    void handleSupervisorTrap();
 
 };
 

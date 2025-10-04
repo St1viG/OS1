@@ -5,6 +5,7 @@
 #include "../h/tcb.hpp"
 #include "../h/riscv.hpp"
 #include "../h/syscall_c.hpp"
+#include "../h/sleepList.hpp"
 
 TCB *TCB::running = nullptr;
 
@@ -61,4 +62,15 @@ void TCB::setStatus(TCB::Status s) {
 
 TCB::Status TCB::getStatus() {
     return status;
+}
+
+int TCB::threadSleep(time_t time) {
+    if(running->getStatus() != RUNNING)
+        return -1;
+    if(time>0){
+        running->setStatus(SLEEPING);
+        SleepList::insert(running,time);
+        dispatch();
+    }
+    return 0;
 }
