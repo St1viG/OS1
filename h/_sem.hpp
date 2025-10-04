@@ -22,8 +22,9 @@ public:
     int sem_signal();
 
 private:
-    bool closed;
     int val;
+    bool closed;
+
 
     List <TCB> blocked_threads;
 

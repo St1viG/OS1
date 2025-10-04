@@ -3,6 +3,12 @@
 
 #include "../lib/hw.h"
 
+inline void invoke(uint64 opcode){
+    __asm__ volatile("mv a0, %0" :: "r"(opcode));
+    __asm__ volatile("ecall");
+}
+
+
 void* mem_alloc (size_t size);
 
 int mem_free (void*);
