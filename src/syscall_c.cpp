@@ -88,4 +88,14 @@ int time_sleep(time_t) {
     return returnValue();
 }
 
+char getc() {
+    invoke(GETC);
+    return (char)returnValue();
+}
+
+void putc(char) {
+    __asm__ volatile("mv a1, a0");
+    invoke(PUTC);
+}
+
 

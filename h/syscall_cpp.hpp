@@ -3,12 +3,9 @@
 #include "syscall_c.hpp"
 #include "tcb.hpp"
 
-void* operator new (size_t n){
-        return mem_alloc(n);
-};
-void operator delete (void* p){
-        mem_free(p);
-};
+void* operator new (size_t n);
+
+void operator delete (void* p) noexcept;
 class Thread {
         public:
         Thread (void (*body)(void*), void* arg);
